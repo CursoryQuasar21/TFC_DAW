@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="avion">
+      <h2 data-cy="avionDetailsHeading"><span jhiTranslate="tfcDawApp.avion.detail.title">Avion</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ avion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.avion.costeFabricacion">Coste Fabricacion</span></dt>
+        <dd>
+          <span>{{ avion.costeFabricacion }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.avion.anioFabricacion">Anio Fabricacion</span></dt>
+        <dd>
+          <span>{{ avion.anioFabricacion | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.avion.modelo">Modelo</span></dt>
+        <dd>
+          <div *ngIf="avion.modelo">
+            <a [routerLink]="['/modelo', avion.modelo?.id, 'view']">{{ avion.modelo?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.avion.aeropuerto">Aeropuerto</span></dt>
+        <dd>
+          <div *ngIf="avion.aeropuerto">
+            <a [routerLink]="['/aeropuerto', avion.aeropuerto?.id, 'view']">{{ avion.aeropuerto?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/avion', avion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

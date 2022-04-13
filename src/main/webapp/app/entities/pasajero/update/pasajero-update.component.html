@@ -1,0 +1,217 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-pasajero-heading" data-cy="PasajeroCreateUpdateHeading" jhiTranslate="tfcDawApp.pasajero.home.createOrEditLabel">
+        Create or edit a Pasajero
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.nombre" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombre')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 15 }"
+            >
+              This field cannot be longer than 15 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.apellidos" for="field_apellidos">Apellidos</label>
+          <input type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" formControlName="apellidos" />
+          <div *ngIf="editForm.get('apellidos')!.invalid && (editForm.get('apellidos')!.dirty || editForm.get('apellidos')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('apellidos')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('apellidos')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('apellidos')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 40 }"
+            >
+              This field cannot be longer than 40 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.pasaporte" for="field_pasaporte">Pasaporte</label>
+          <input type="text" class="form-control" name="pasaporte" id="field_pasaporte" data-cy="pasaporte" formControlName="pasaporte" />
+          <div *ngIf="editForm.get('pasaporte')!.invalid && (editForm.get('pasaporte')!.dirty || editForm.get('pasaporte')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('pasaporte')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('pasaporte')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 9 }"
+            >
+              This field is required to be at least 9 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('pasaporte')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 9 }"
+            >
+              This field cannot be longer than 9 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.cantidadEquipaje" for="field_cantidadEquipaje"
+            >Cantidad Equipaje</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="cantidadEquipaje"
+            id="field_cantidadEquipaje"
+            data-cy="cantidadEquipaje"
+            formControlName="cantidadEquipaje"
+          />
+          <div
+            *ngIf="
+              editForm.get('cantidadEquipaje')!.invalid &&
+              (editForm.get('cantidadEquipaje')!.dirty || editForm.get('cantidadEquipaje')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('cantidadEquipaje')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('cantidadEquipaje')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 9 }"
+            >
+              This field cannot be more than 9.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('cantidadEquipaje')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.numeroAsiento" for="field_numeroAsiento">Numero Asiento</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroAsiento"
+            id="field_numeroAsiento"
+            data-cy="numeroAsiento"
+            formControlName="numeroAsiento"
+          />
+          <div
+            *ngIf="
+              editForm.get('numeroAsiento')!.invalid && (editForm.get('numeroAsiento')!.dirty || editForm.get('numeroAsiento')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numeroAsiento')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 10 }"
+            >
+              This field should be at least 10.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numeroAsiento')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 853 }"
+            >
+              This field cannot be more than 853.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroAsiento')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.avion" for="field_avion">Avion</label>
+          <select class="form-control" id="field_avion" data-cy="avion" name="avion" formControlName="avion">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="avionOption.id === editForm.get('avion')!.value?.id ? editForm.get('avion')!.value : avionOption"
+              *ngFor="let avionOption of avionsSharedCollection; trackBy: trackAvionById"
+            >
+              {{ avionOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

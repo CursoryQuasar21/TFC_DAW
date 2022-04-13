@@ -1,0 +1,143 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-avion-heading" data-cy="AvionCreateUpdateHeading" jhiTranslate="tfcDawApp.avion.home.createOrEditLabel">
+        Create or edit a Avion
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.avion.costeFabricacion" for="field_costeFabricacion"
+            >Coste Fabricacion</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="costeFabricacion"
+            id="field_costeFabricacion"
+            data-cy="costeFabricacion"
+            formControlName="costeFabricacion"
+          />
+          <div
+            *ngIf="
+              editForm.get('costeFabricacion')!.invalid &&
+              (editForm.get('costeFabricacion')!.dirty || editForm.get('costeFabricacion')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('costeFabricacion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('costeFabricacion')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 1 }"
+            >
+              This field should be at least 1.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('costeFabricacion')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.avion.anioFabricacion" for="field_anioFabricacion"
+            >Anio Fabricacion</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_anioFabricacion"
+              data-cy="anioFabricacion"
+              type="datetime-local"
+              class="form-control"
+              name="anioFabricacion"
+              formControlName="anioFabricacion"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('anioFabricacion')!.invalid &&
+              (editForm.get('anioFabricacion')!.dirty || editForm.get('anioFabricacion')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('anioFabricacion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('anioFabricacion')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.avion.modelo" for="field_modelo">Modelo</label>
+          <select class="form-control" id="field_modelo" data-cy="modelo" name="modelo" formControlName="modelo">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="modeloOption.id === editForm.get('modelo')!.value?.id ? editForm.get('modelo')!.value : modeloOption"
+              *ngFor="let modeloOption of modelosSharedCollection; trackBy: trackModeloById"
+            >
+              {{ modeloOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.avion.aeropuerto" for="field_aeropuerto">Aeropuerto</label>
+          <select class="form-control" id="field_aeropuerto" data-cy="aeropuerto" name="aeropuerto" formControlName="aeropuerto">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                aeropuertoOption.id === editForm.get('aeropuerto')!.value?.id ? editForm.get('aeropuerto')!.value : aeropuertoOption
+              "
+              *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById"
+            >
+              {{ aeropuertoOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

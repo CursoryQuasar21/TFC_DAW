@@ -1,0 +1,30 @@
+{
+  "name": "Equipaje",
+  "fields": [
+    {
+      "fieldName": "tipo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "15"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "pasajero",
+      "otherEntityRelationshipName": "equipaje",
+      "relationshipName": "pasajero"
+    }
+  ],
+  "entityTableName": "equipaje",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155657"
+}

@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="equipaje">
+      <h2 data-cy="equipajeDetailsHeading"><span jhiTranslate="tfcDawApp.equipaje.detail.title">Equipaje</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ equipaje.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.equipaje.tipo">Tipo</span></dt>
+        <dd>
+          <span>{{ equipaje.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.equipaje.pasajero">Pasajero</span></dt>
+        <dd>
+          <div *ngIf="equipaje.pasajero">
+            <a [routerLink]="['/pasajero', equipaje.pasajero?.id, 'view']">{{ equipaje.pasajero?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/equipaje', equipaje.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

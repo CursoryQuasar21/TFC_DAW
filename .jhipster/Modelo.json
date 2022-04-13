@@ -1,0 +1,65 @@
+{
+  "name": "Modelo",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "4",
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "motores",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "9"
+    },
+    {
+      "fieldName": "cantidadPilotos",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "4"
+    },
+    {
+      "fieldName": "cantidadTripulantes",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "9"
+    },
+    {
+      "fieldName": "cantidadPasajeros",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "853"
+    },
+    {
+      "fieldName": "cantidadEquipajes",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "999"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "avion",
+      "otherEntityRelationshipName": "modelo",
+      "relationshipName": "avion"
+    }
+  ],
+  "entityTableName": "modelo",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155659"
+}

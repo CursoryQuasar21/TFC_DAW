@@ -1,0 +1,65 @@
+{
+  "name": "Avion",
+  "fields": [
+    {
+      "fieldName": "costeFabricacion",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "anioFabricacion",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "piloto",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "piloto"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "tripulante",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "tripulante"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "pasajero",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "pasajero"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "vuelo",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "vuelo",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modelo",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "modelo"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "aeropuerto",
+      "otherEntityRelationshipName": "avion",
+      "relationshipName": "aeropuerto"
+    }
+  ],
+  "entityTableName": "avion",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155658"
+}

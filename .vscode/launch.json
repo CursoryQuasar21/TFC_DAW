@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TfcDawApp<tfc-daw>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.mycompany.myapp.TfcDawApp",
+            "projectName": "tfc-daw",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

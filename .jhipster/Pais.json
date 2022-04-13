@@ -1,0 +1,30 @@
+{
+  "name": "Pais",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "30"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "ciudad",
+      "otherEntityRelationshipName": "pais",
+      "relationshipName": "ciudad"
+    }
+  ],
+  "entityTableName": "pais",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155703"
+}

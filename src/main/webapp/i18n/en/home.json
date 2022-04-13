@@ -1,0 +1,87 @@
+{
+  "home": {
+    "title": "Welcome, Java Hipster!",
+    "subtitle": "This is your homepage",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    },
+    "question": "If you have any question on JHipster:",
+    "link": {
+      "homepage": "JHipster homepage",
+      "stackoverflow": "JHipster on Stack Overflow",
+      "bugtracker": "JHipster bug tracker",
+      "chat": "JHipster public chat room",
+      "follow": "follow @jhipster on Twitter"
+    },
+    "like": "If you like JHipster, don't forget to give us a star on",
+    "github": "GitHub",
+    "div1": {
+      "div1": {
+        "h1_1": "SkyRise"
+      },
+      "div2": {
+        "h1_1": "The company of your dreams"
+      },
+      "div3": {
+        "button_1": "Fleet",
+        "button_2": "Airoports"
+      }
+    },
+    "section1": {
+      "div1": {
+        "div1": {
+          "h5_1": "Puntuality",
+          "p_1": "According to sources from the specialized consultant CIRIOM, our company obtains 92.13% in the punctuality index. <br><br> We continue to improve our punctuality ratios day by day in all our destinations."
+        },
+        "div2": {
+          "h5_1": "Prices",
+          "p_1": "Our rates are tailored to the needs of our customers",
+          "l_1_1": "Low Fore",
+          "l_1_2": "Low Fore +",
+          "l_1_3": "Flex"
+        },
+        "div3": {
+          "h5_1": "Exclusive",
+          "p_1": "High standing for executives working around the world. <br><br> Speed, mobility and independence, our goal to satisfy the most demanding groups."
+        }
+      },
+      "div2": {
+        "span_1": "Join our team",
+        "button_1": "Sign In"
+      }
+    },
+    "section2": {
+      "div1": {
+        "span_1": "Our Fleet",
+        "p_1": "Model"
+      },
+      "div2": {
+        "div1": {
+          "span_1": "Airbus",
+          "l_1_1": "Airbus A220",
+          "l_1_2": "Airbus A330-200",
+          "l_1_3": "Airbus A330-300"
+        },
+        "div2": {
+          "span_1": "Boing",
+          "l_1_1": "Boing 737-900",
+          "l_1_2": "Boing 737-300ER",
+          "l_1_3": "Boing 787-9"
+        },
+        "div3": {
+          "span_1": "Jets",
+          "l_1_1": "Bombardier global 7500",
+          "l_1_2": "Dassault Falcon 8X",
+          "l_1_3": "Gulfstrea G600"
+        }
+      },
+      "div3": {
+        "span_1": "Our fates",
+        "p_1": "Schedules"
+      }
+    },
+    "div2": {
+      "h1_1": "Airoports"
+    }
+  }
+}

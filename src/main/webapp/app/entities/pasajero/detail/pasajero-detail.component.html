@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pasajero">
+      <h2 data-cy="pasajeroDetailsHeading"><span jhiTranslate="tfcDawApp.pasajero.detail.title">Pasajero</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pasajero.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ pasajero.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.apellidos">Apellidos</span></dt>
+        <dd>
+          <span>{{ pasajero.apellidos }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.pasaporte">Pasaporte</span></dt>
+        <dd>
+          <span>{{ pasajero.pasaporte }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.cantidadEquipaje">Cantidad Equipaje</span></dt>
+        <dd>
+          <span>{{ pasajero.cantidadEquipaje }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.numeroAsiento">Numero Asiento</span></dt>
+        <dd>
+          <span>{{ pasajero.numeroAsiento }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.pasajero.avion">Avion</span></dt>
+        <dd>
+          <div *ngIf="pasajero.avion">
+            <a [routerLink]="['/avion', pasajero.avion?.id, 'view']">{{ pasajero.avion?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pasajero', pasajero.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "tfcDawApp": {
+    "tripulante": {
+      "home": {
+        "title": "Tripulantes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Tripulante",
+        "createOrEditLabel": "Crear o editar Tripulante",
+        "notFound": "Ningún Tripulantes encontrado"
+      },
+      "created": "Un nuevo Tripulante ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tripulante ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tripulante ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Tripulante {{ id }}?"
+      },
+      "detail": {
+        "title": "Tripulante"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "pasaporte": "Pasaporte",
+      "avion": "Avion"
+    }
+  }
+}

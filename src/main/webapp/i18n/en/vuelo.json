@@ -1,0 +1,28 @@
+{
+  "tfcDawApp": {
+    "vuelo": {
+      "home": {
+        "title": "Vuelos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Vuelo",
+        "createOrEditLabel": "Create or edit a Vuelo",
+        "notFound": "No Vuelos found"
+      },
+      "created": "A new Vuelo is created with identifier {{ param }}",
+      "updated": "A Vuelo is updated with identifier {{ param }}",
+      "deleted": "A Vuelo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Vuelo {{ id }}?"
+      },
+      "detail": {
+        "title": "Vuelo"
+      },
+      "id": "ID",
+      "fechaOrigen": "Fecha Origen",
+      "fechaDestino": "Fecha Destino",
+      "precio": "Precio",
+      "avion": "Avion",
+      "aeropuerto": "Aeropuerto"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "tfcDawApp": {
+    "piloto": {
+      "home": {
+        "title": "Pilotos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Piloto",
+        "createOrEditLabel": "Create or edit a Piloto",
+        "notFound": "No Pilotos found"
+      },
+      "created": "A new Piloto is created with identifier {{ param }}",
+      "updated": "A Piloto is updated with identifier {{ param }}",
+      "deleted": "A Piloto is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Piloto {{ id }}?"
+      },
+      "detail": {
+        "title": "Piloto"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "pasaporte": "Pasaporte",
+      "avion": "Avion"
+    }
+  }
+}

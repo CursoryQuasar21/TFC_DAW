@@ -1,0 +1,87 @@
+{
+  "home": {
+    "title": "¡Bienvenido, Java Hipster!",
+    "subtitle": "Esta es su página de inicio",
+    "logged": {
+      "message": "Está conectado como \"{{username}}\"."
+    },
+    "question": "Si tiene preguntas sobre JHipster:",
+    "link": {
+      "homepage": "Página de inicio de JHipster",
+      "stackoverflow": "JHipster en Stack Overflow",
+      "bugtracker": "JHipster seguimiento de errores",
+      "chat": "Sala de chat pública de JHipster",
+      "follow": "contacto @jhipster en Twitter"
+    },
+    "like": "Si te gusta JHipster, danos una estrella en",
+    "github": "GitHub",
+    "div1": {
+      "div1": {
+        "h1_1": "SkyRise"
+      },
+      "div2": {
+        "h1_1": "La Compañia de tus sueños"
+      },
+      "div3": {
+        "button_1": "Flota",
+        "button_2": "Aeropuertos"
+      }
+    },
+    "section1": {
+      "div1": {
+        "div1": {
+          "h5_1": "Puntualidad",
+          "p_1": "Segun fuentes de la consultora especializada CIRIOM, nuestra compañia obtienee un 92'13% en el indice de puntualidad. <br><br> Seguimos mejorando dia a dia nuestros ratios de puntualidad en  todos nuestros destinos."
+        },
+        "div2": {
+          "h5_1": "Precios",
+          "p_1": "Nuestras tarifas se adaptan a las necesidaddes de nuestros clientes",
+          "l_1_1": "Low Fore",
+          "l_1_2": "Low Fore +",
+          "l_1_3": "Flex"
+        },
+        "div3": {
+          "h5_1": "Exclusividad",
+          "p_1": "Alto standing para ejecutivos que trabajan alrededor del mundo. <br><br> Rapidez, movilidad e independencia, nuestra meta para satisfacer a los grupos más exigentes."
+        }
+      },
+      "div2": {
+        "span_1": "Unete a nuestro equipo",
+        "button_1": "Inicia Sesion"
+      }
+    },
+    "section2": {
+      "div1": {
+        "span_1": "Nuestra Flota",
+        "p_1": "Modelos"
+      },
+      "div2": {
+        "div1": {
+          "span_1": "Airbus",
+          "l_1_1": "Airbus A220",
+          "l_1_2": "Airbus A330-200",
+          "l_1_3": "Airbus A330-300"
+        },
+        "div2": {
+          "span_1": "Boing",
+          "l_1_1": "Boing 737-900",
+          "l_1_2": "Boing 737-300ER",
+          "l_1_3": "Boing 787-9"
+        },
+        "div3": {
+          "span_1": "Jets",
+          "l_1_1": "Bombardier global 7500",
+          "l_1_2": "Dassault Falcon 8X",
+          "l_1_3": "Gulfstrea G600"
+        }
+      },
+      "div3": {
+        "span_1": "Nuestros Destinos",
+        "p_1": "Horarios"
+      }
+    },
+    "div2": {
+      "h1_1": "Aeropuertos"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Aeropuerto",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "30"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "avion",
+      "otherEntityRelationshipName": "aeropuerto",
+      "relationshipName": "avion"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "vuelo",
+      "otherEntityRelationshipName": "aeropuerto",
+      "relationshipName": "vuelo",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ciudad",
+      "otherEntityRelationshipName": "aeropuerto",
+      "relationshipName": "ciudad"
+    }
+  ],
+  "entityTableName": "aeropuerto",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155701"
+}

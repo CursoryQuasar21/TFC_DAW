@@ -1,0 +1,30 @@
+{
+  "tfcDawApp": {
+    "pasajero": {
+      "home": {
+        "title": "Pasajeros",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Pasajero",
+        "createOrEditLabel": "Create or edit a Pasajero",
+        "notFound": "No Pasajeros found"
+      },
+      "created": "A new Pasajero is created with identifier {{ param }}",
+      "updated": "A Pasajero is updated with identifier {{ param }}",
+      "deleted": "A Pasajero is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pasajero {{ id }}?"
+      },
+      "detail": {
+        "title": "Pasajero"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "pasaporte": "Pasaporte",
+      "cantidadEquipaje": "Cantidad Equipaje",
+      "numeroAsiento": "Numero Asiento",
+      "equipaje": "Equipaje",
+      "avion": "Avion"
+    }
+  }
+}

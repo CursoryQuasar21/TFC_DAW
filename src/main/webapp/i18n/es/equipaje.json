@@ -1,0 +1,25 @@
+{
+  "tfcDawApp": {
+    "equipaje": {
+      "home": {
+        "title": "Equipajes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Equipaje",
+        "createOrEditLabel": "Crear o editar Equipaje",
+        "notFound": "Ningún Equipajes encontrado"
+      },
+      "created": "Un nuevo Equipaje ha sido creado con el identificador {{ param }}",
+      "updated": "Un Equipaje ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Equipaje ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Equipaje {{ id }}?"
+      },
+      "detail": {
+        "title": "Equipaje"
+      },
+      "id": "ID",
+      "tipo": "Tipo",
+      "pasajero": "Pasajero"
+    }
+  }
+}

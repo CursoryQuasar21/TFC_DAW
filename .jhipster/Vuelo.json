@@ -1,0 +1,48 @@
+{
+  "name": "Vuelo",
+  "fields": [
+    {
+      "fieldName": "fechaOrigen",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaDestino",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "precio",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "99999999"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "avion",
+      "otherEntityRelationshipName": "vuelo",
+      "relationshipName": "avion",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "aeropuerto",
+      "otherEntityRelationshipName": "vuelo",
+      "relationshipName": "aeropuerto",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "vuelo",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155700"
+}

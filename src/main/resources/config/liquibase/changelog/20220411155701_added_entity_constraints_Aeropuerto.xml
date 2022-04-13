@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Aeropuerto.
+    -->
+    <changeSet id="20220411155701-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="aeropuerto_id"
+                                 baseTableName="rel_aeropuerto__vuelo"
+                                 constraintName="fk_rel_aeropuerto__vuelo__aeropuerto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="aeropuerto"/>
+
+        <addForeignKeyConstraint baseColumnNames="vuelo_id"
+                                 baseTableName="rel_aeropuerto__vuelo"
+                                 constraintName="fk_rel_aeropuerto__vuelo__vuelo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vuelo"/>
+
+        <addForeignKeyConstraint baseColumnNames="ciudad_id"
+                                 baseTableName="aeropuerto"
+                                 constraintName="fk_aeropuerto__ciudad_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ciudad"/>
+    </changeSet>
+</databaseChangeLog>

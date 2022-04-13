@@ -1,0 +1,36 @@
+{
+  "name": "Ciudad",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "30"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "aeropuerto",
+      "otherEntityRelationshipName": "ciudad",
+      "relationshipName": "aeropuerto"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "pais",
+      "otherEntityRelationshipName": "ciudad",
+      "relationshipName": "pais"
+    }
+  ],
+  "entityTableName": "ciudad",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155702"
+}

@@ -1,0 +1,27 @@
+{
+  "tfcDawApp": {
+    "piloto": {
+      "home": {
+        "title": "Pilotos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Piloto",
+        "createOrEditLabel": "Crear o editar Piloto",
+        "notFound": "Ningún Pilotos encontrado"
+      },
+      "created": "Un nuevo Piloto ha sido creado con el identificador {{ param }}",
+      "updated": "Un Piloto ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Piloto ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Piloto {{ id }}?"
+      },
+      "detail": {
+        "title": "Piloto"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "pasaporte": "Pasaporte",
+      "avion": "Avion"
+    }
+  }
+}

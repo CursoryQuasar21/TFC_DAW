@@ -1,0 +1,143 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+#img1 {
+  height: 300px;
+  width: 300px;
+}
+.hipster {
+  display: inline-block;
+  width: 347px;
+  height: 497px;
+  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+  background-size: contain;
+}
+.boton1 {
+  color: rgb(236, 35, 146);
+  border-color: rgb(236, 35, 146);
+}
+.boton1:hover {
+  color: white;
+  border-color: rgb(236, 35, 146);
+  background-color: rgb(236, 35, 146);
+}
+.imagenesCarrusel {
+  width: 100%;
+  height: 600px;
+  animation: CambiarCarrusel 20s ease-in-out infinite;
+}
+@keyframes CambiarCarrusel {
+  0% {
+    background: url('../../content/images/homepage/aeropuerto-Pekin.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  50% {
+    background: url('../../content/images/homepage/aeropuerto-Changi.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  100% {
+    background: url('../../content/images/homepage/aeropuerto-Angeles.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-moz-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .hipster {
+    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+    background-size: contain;
+  }
+}
+
+//----------------------------------------------------------------------------
+
+.icon-cards {
+  position: relative;
+  width: 90vw;
+  height: 70vw;
+  max-width: 500px;
+  max-height: 370px;
+  perspective: 2000px;
+
+  // This is the element that rotates with the animation
+
+  &__content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transform: translateZ(-30vw) rotateY(0);
+    animation: carousel 10s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+
+    &.step-animation {
+      animation: carousel 8s infinite steps(1) forwards;
+    }
+  }
+
+  // Individual cards
+
+  &__item {
+    position: absolute;
+    width: 90vw;
+    height: 70vw;
+    max-width: 500px;
+    max-height: 370px;
+    border-radius: 6px;
+    transform-origin: center;
+
+    &:nth-child(1) {
+      background: url('../../content/images/homepage/aeropuerto-Pekin.jpg') no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      transform: rotateY(0) translateZ(35vw);
+    }
+
+    &:nth-child(2) {
+      background: url('../../content/images/homepage/aeropuerto-Changi.jpg') no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      transform: rotateY(120deg) translateZ(35vw);
+    }
+
+    &:nth-child(3) {
+      background: url('../../content/images/homepage/aeropuerto-Angeles.jpg') no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      transform: rotateY(240deg) translateZ(35vw);
+    }
+  }
+}
+
+// Carousel animation
+
+@keyframes carousel {
+  0%,
+  17.5% {
+    transform: translateZ(-35vw) rotateY(0);
+  }
+  27.5%,
+  45% {
+    transform: translateZ(-35vw) rotateY(-120deg);
+  }
+  55%,
+  72.5% {
+    transform: translateZ(-35vw) rotateY(-240deg);
+  }
+  82.5%,
+  100% {
+    transform: translateZ(-35vw) rotateY(-360deg);
+  }
+}

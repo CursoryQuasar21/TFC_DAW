@@ -1,0 +1,26 @@
+{
+  "tfcDawApp": {
+    "ciudad": {
+      "home": {
+        "title": "Ciudads",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Ciudad",
+        "createOrEditLabel": "Crear o editar Ciudad",
+        "notFound": "Ningún Ciudads encontrado"
+      },
+      "created": "Un nuevo Ciudad ha sido creado con el identificador {{ param }}",
+      "updated": "Un Ciudad ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Ciudad ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Ciudad {{ id }}?"
+      },
+      "detail": {
+        "title": "Ciudad"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "aeropuerto": "Aeropuerto",
+      "pais": "Pais"
+    }
+  }
+}

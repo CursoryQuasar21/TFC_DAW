@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="vuelo">
+      <h2 data-cy="vueloDetailsHeading"><span jhiTranslate="tfcDawApp.vuelo.detail.title">Vuelo</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ vuelo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.vuelo.fechaOrigen">Fecha Origen</span></dt>
+        <dd>
+          <span>{{ vuelo.fechaOrigen | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.vuelo.fechaDestino">Fecha Destino</span></dt>
+        <dd>
+          <span>{{ vuelo.fechaDestino | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.vuelo.precio">Precio</span></dt>
+        <dd>
+          <span>{{ vuelo.precio }}</span>
+        </dd>
+        <dt><span jhiTranslate="tfcDawApp.vuelo.avion">Avion</span></dt>
+        <dd>
+          <div *ngIf="vuelo.avion">
+            <a [routerLink]="['/avion', vuelo.avion?.id, 'view']">{{ vuelo.avion?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/vuelo', vuelo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+entity Piloto {
+	nombre String required minlength(3) maxlength(15),
+	apellidos String required minlength(3) maxlength(40),
+	pasaporte String required minlength(9) maxlength(9)
+}
+
+entity Tripulante {
+	nombre String required minlength(3) maxlength(15),
+	apellidos String required minlength(3) maxlength(40),
+	pasaporte String required minlength(9) maxlength(9)
+}
+
+entity Pasajero{
+	nombre String required minlength(3) maxlength(15),
+	apellidos String required minlength(3) maxlength(40),
+	pasaporte String required minlength(9) maxlength(9),
+    cantidadEquipaje Integer required max(9),
+	numeroAsiento Integer min(10) max(853)
+}
+
+entity Equipaje{
+	tipo String required minlength(3) maxlength(15)
+}
+
+entity Avion{
+	costeFabricacion Double required min(1),
+	anioFabricacion Instant required
+}
+
+entity Modelo{
+    nombre String required minlength(4) maxlength(10),
+    motores Integer required min(1) max(9),
+    cantidadPilotos Integer required min(1) max(4),
+    cantidadTripulantes Integer required min(1) max(9),
+    cantidadPasajeros Integer required min(1) max(853),
+    cantidadEquipajes Integer required min(0) max(999)
+}
+
+entity Vuelo{
+    fechaOrigen Instant required,
+    fechaDestino Instant required,
+    precio Integer required min(1) max(99999999)
+}
+
+entity Aeropuerto{
+	nombre String required minlength(3) maxlength(30)
+}
+
+entity Ciudad{
+	nombre String required minlength(3) maxlength(30)
+}
+
+entity Pais{
+	nombre String required minlength(3) maxlength(30)
+}
+
+relationship OneToOne{
+	Vuelo{avion} to Avion{vuelo}
+}
+relationship OneToMany{
+	Modelo{avion} to Avion{modelo}
+}
+relationship OneToMany{
+	Avion{piloto} to Piloto{avion}
+}
+relationship OneToMany{
+	Avion{tripulante} to Tripulante{avion}
+}
+relationship OneToMany{
+	Avion{pasajero} to Pasajero{avion}
+}
+relationship OneToMany{
+	Pasajero{equipaje} to Equipaje{pasajero}
+}
+relationship OneToMany{
+	Aeropuerto{avion} to Avion{aeropuerto}
+}
+relationship ManyToMany{
+	Aeropuerto{vuelo} to Vuelo{aeropuerto}
+}
+relationship OneToMany{
+	Ciudad{aeropuerto} to Aeropuerto{ciudad}
+}
+relationship OneToMany{
+	Pais{ciudad} to Ciudad{pais}
+}
+
+// Set pagination options
+paginate all with pagination
+service all with serviceImpl

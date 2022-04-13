@@ -1,0 +1,31 @@
+{
+  "tfcDawApp": {
+    "avion": {
+      "home": {
+        "title": "Avions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Avion",
+        "createOrEditLabel": "Crear o editar Avion",
+        "notFound": "Ningún Avions encontrado"
+      },
+      "created": "Un nuevo Avion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Avion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Avion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Avion {{ id }}?"
+      },
+      "detail": {
+        "title": "Avion"
+      },
+      "id": "ID",
+      "costeFabricacion": "Coste Fabricacion",
+      "anioFabricacion": "Anio Fabricacion",
+      "piloto": "Piloto",
+      "tripulante": "Tripulante",
+      "pasajero": "Pasajero",
+      "vuelo": "Vuelo",
+      "modelo": "Modelo",
+      "aeropuerto": "Aeropuerto"
+    }
+  }
+}

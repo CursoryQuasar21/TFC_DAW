@@ -1,0 +1,27 @@
+{
+  "tfcDawApp": {
+    "aeropuerto": {
+      "home": {
+        "title": "Aeropuertos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Aeropuerto",
+        "createOrEditLabel": "Create or edit a Aeropuerto",
+        "notFound": "No Aeropuertos found"
+      },
+      "created": "A new Aeropuerto is created with identifier {{ param }}",
+      "updated": "A Aeropuerto is updated with identifier {{ param }}",
+      "deleted": "A Aeropuerto is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Aeropuerto {{ id }}?"
+      },
+      "detail": {
+        "title": "Aeropuerto"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "avion": "Avion",
+      "vuelo": "Vuelo",
+      "ciudad": "Ciudad"
+    }
+  }
+}

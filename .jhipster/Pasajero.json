@@ -1,0 +1,63 @@
+{
+  "name": "Pasajero",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "15"
+    },
+    {
+      "fieldName": "apellidos",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "40"
+    },
+    {
+      "fieldName": "pasaporte",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "9",
+      "fieldValidateRulesMaxlength": "9"
+    },
+    {
+      "fieldName": "cantidadEquipaje",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "max"],
+      "fieldValidateRulesMax": "9"
+    },
+    {
+      "fieldName": "numeroAsiento",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "10",
+      "fieldValidateRulesMax": "853"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "equipaje",
+      "otherEntityRelationshipName": "pasajero",
+      "relationshipName": "equipaje"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "avion",
+      "otherEntityRelationshipName": "pasajero",
+      "relationshipName": "avion"
+    }
+  ],
+  "entityTableName": "pasajero",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220411155656"
+}
