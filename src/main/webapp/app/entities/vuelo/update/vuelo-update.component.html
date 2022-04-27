@@ -108,7 +108,14 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="tfcDawApp.vuelo.avion" for="field_avion">Avion</label>
-          <select class="form-control" id="field_avion" data-cy="avion" name="avion" formControlName="avion">
+          <select
+            class="form-control"
+            id="field_avion"
+            data-cy="avion"
+            name="avion"
+            formControlName="avion"
+            (change)="cambiarListaZonasAvionOrigen($event)"
+          >
             <option [ngValue]="null"></option>
             <option
               [ngValue]="avionOption.id === editForm.get('avion')!.value?.id ? editForm.get('avion')!.value : avionOption"
@@ -117,6 +124,69 @@
               {{ avionOption.id }}
             </option>
           </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-control-label" for="field_aeropuertoOrigen">Origen</label>
+        <div class="d-flex">
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_paisesOrigen">Pais:</span>
+            <select class="form-control mt-1" id="field_paisesOrigen" data-cy="paises" name="paises" disabled>
+              <option>{{ paisOrigen?.id }}-{{ paisOrigen?.nombre }}</option>
+            </select>
+          </div>
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_ciudadesOrigen">Ciudad:</span>
+            <select class="form-control mt-1" id="field_ciudadesOrigen" data-cy="ciudades" name="ciudades" disabled>
+              <option>{{ ciudadOrigen?.id }}-{{ ciudadOrigen?.nombre }}</option>
+            </select>
+          </div>
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_aeropuertoOrigen">Aeropuerto:</span>
+            <select class="form-control mt-1" id="field_aeropuertoOrigen" data-cy="aeropuerto" name="aeropuerto" disabled>
+              <option>{{ aeropuertoOrigen?.id }}-{{ aeropuertoOrigen?.nombre }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-control-label" for="field_aeropuerto">Destino</label>
+        <div class="d-flex">
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_paises">Pais:</span>
+            <select class="form-control mt-1" id="field_paises" data-cy="paises" name="paises" (change)="cambiarlistaCiudades($event)">
+              <option value="null"></option>
+              <option *ngFor="let paisOption of paisesSharedCollection" value="{{ paisOption.id }}">
+                {{ paisOption.id }}--{{ paisOption.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_ciudades">Ciudad:</span>
+            <select
+              class="form-control mt-1"
+              id="field_ciudades"
+              data-cy="ciudades"
+              name="ciudades"
+              (change)="cambiarlistaAeropuertos($event)"
+            >
+              <option value="null"></option>
+              <option *ngFor="let ciudadOption of ciudadesSharedCollection; trackBy: trackCiudadById" value="{{ ciudadOption.id }}">
+                {{ ciudadOption.id }}--{{ ciudadOption.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="mx-1 col-4">
+            <span class="form-control-label" for="field_aeropuerto">Aeropuerto:</span>
+            <select class="form-control mt-1" id="field_aeropuerto" data-cy="aeropuerto" name="aeropuerto">
+              <option [ngValue]="null"></option>
+              <option *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById">
+                {{ aeropuertoOption.id }}--{{ aeropuertoOption.nombre }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 

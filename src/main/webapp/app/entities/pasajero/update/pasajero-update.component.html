@@ -96,6 +96,14 @@
             >
               This field cannot be longer than 9 characters.
             </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('pasaporte')?.errors?.pattern"
+              jhiTranslate="entity.validation.patternPasaport"
+              [translateValues]="{ max: 40 }"
+            >
+              This field should follow pattern for A12345678 or A1234567A.
+            </small>
           </div>
         </div>
 
@@ -110,13 +118,15 @@
             id="field_cantidadEquipaje"
             data-cy="cantidadEquipaje"
             formControlName="cantidadEquipaje"
+            (change)="verificarListaEquipaje()"
+            (change)="verificarNumeroEquipaje()"
           />
-          <div
-            *ngIf="
-              editForm.get('cantidadEquipaje')!.invalid &&
-              (editForm.get('cantidadEquipaje')!.dirty || editForm.get('cantidadEquipaje')!.touched)
-            "
-          >
+          <div>
+            <!-- *ngIf="
+            editForm.get('cantidadEquipaje')!.invalid &&
+            (editForm.get('cantidadEquipaje')!.dirty || editForm.get('cantidadEquipaje')!.touched) &&
+            isNumeroE
+          " -->
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('cantidadEquipaje')?.errors?.required"
@@ -139,10 +149,106 @@
             >
               This field should be a number.
             </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="editForm.get('cantidadEquipaje')?.value === listaEquipajeP.length"
+              jhiTranslate="entity.validation.numberLuggage"
+            >
+              This field should be equal amount of luggage.
+            </small>
           </div>
         </div>
-
+        <div [hidden]="editForm.get('cantidadEquipaje')!.value <= 0">
+          <h2 class="text-muted">Equipaje</h2>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="35"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 33.4%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <table class="table table-hover" id="tablaEquipaje">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.equipaje.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.equipaje.tipo" for="field_tipo">Tipo</th>
+                <th class="table-dark" scope="col">
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="customSwitch1"
+                      (change)="mostrarOcultarTabla(0, 'cuerpoTablaEquipaje')"
+                    />
+                    <label class="custom-control-label" for="customSwitch1">Ocultar</label>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaEquipaje" [hidden]="hiddenEquipajes">
+              <tr
+                *ngFor="let equipajeOption of equipajesSharedCollection; trackBy: trackEquipajeById; let i = index"
+                [ngClass]="{ 'table-active': i % 2 !== 0 }"
+              >
+                <td>{{ equipajeOption.id }}</td>
+                <td>{{ equipajeOption.tipo }}</td>
+                <td>
+                  <button
+                    [ngClass]="{
+                      'btn-outline-primary': equipajeOption.pasajero === null,
+                      'btn-outline-danger': equipajeOption.pasajero !== null
+                    }"
+                    id="botonEquipajeAnadir{{ i }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirEquipaje(equipajeOption, $event.target)"
+                  >
+                    {{ equipajeOption.pasajero === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <ul class="list-group" id="listaPasajerosAbordo">
+            <li *ngFor="let equipajeOption of listaEquipajeP" class="list-group-item d-flex justify-content-between align-items-center">
+              {{ equipajeOption.id }}-{{ equipajeOption.tipo }}
+            </li>
+          </ul>
+        </div>
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.avion" for="field_avion">Avion</label>
+          <select class="form-control" id="field_avion" data-cy="avion" name="avion" formControlName="avion" (change)="billete()">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="avionOption.id === editForm.get('avion')!.value?.id ? editForm.get('avion')!.value : avionOption"
+              *ngFor="let avionOption of avionsSharedCollection; trackBy: trackAvionById"
+            >
+              {{ avionOption.id }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group" [hidden]="editForm.get('avion')!.value == null">
           <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.numeroAsiento" for="field_numeroAsiento">Numero Asiento</label>
           <input
             type="number"
@@ -151,6 +257,7 @@
             id="field_numeroAsiento"
             data-cy="numeroAsiento"
             formControlName="numeroAsiento"
+            (change)="verificarNumeroAsiento()"
           />
           <div
             *ngIf="
@@ -180,20 +287,20 @@
             >
               This field should be a number.
             </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tfcDawApp.pasajero.avion" for="field_avion">Avion</label>
-          <select class="form-control" id="field_avion" data-cy="avion" name="avion" formControlName="avion">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="avionOption.id === editForm.get('avion')!.value?.id ? editForm.get('avion')!.value : avionOption"
-              *ngFor="let avionOption of avionsSharedCollection; trackBy: trackAvionById"
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroAsiento')?.errors?.number"
+              jhiTranslate="entity.validation.number"
             >
-              {{ avionOption.id }}
-            </option>
-          </select>
+              This field should be a number.
+            </small>
+            <small class="form-text text-danger" [hidden]="isNumeroA" jhiTranslate="entity.validation.numberSeatsLuggage">
+              An error has occurred regarding the plane, due to the model and the number of seats and luggage on it.
+            </small>
+            <small class="form-text text-danger" [hidden]="isNumeroAExiste" jhiTranslate="entity.validation.numberAlreadyExist">
+              The seat number is already in use by another passenger.
+            </small>
+          </div>
         </div>
       </div>
 
@@ -206,7 +313,7 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="editForm.invalid || isSaving || isNumeroE || isNumeroA"
           class="btn btn-primary"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

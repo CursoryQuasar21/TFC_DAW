@@ -96,35 +96,298 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="tfcDawApp.avion.modelo" for="field_modelo">Modelo</label>
-          <select class="form-control" id="field_modelo" data-cy="modelo" name="modelo" formControlName="modelo">
+          <select
+            class="form-control"
+            id="field_modelo"
+            data-cy="modelo"
+            name="modelo"
+            formControlName="modelo"
+            (change)="verificarCantidadPasajeros()"
+          >
             <option [ngValue]="null"></option>
             <option
               [ngValue]="modeloOption.id === editForm.get('modelo')!.value?.id ? editForm.get('modelo')!.value : modeloOption"
               *ngFor="let modeloOption of modelosSharedCollection; trackBy: trackModeloById"
             >
-              {{ modeloOption.id }}
+              ID->{{ modeloOption.id }}: Nombre->{{ modeloOption.nombre }}: Pilotos->{{ modeloOption.cantidadPilotos }}: Tripulantes->{{
+                modeloOption.cantidadTripulantes
+              }}: Pasajeros->{{ modeloOption.cantidadPasajeros }}: Equipajes->{{ modeloOption.cantidadEquipajes }}
             </option>
           </select>
         </div>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="tfcDawApp.avion.aeropuerto" for="field_aeropuerto">Aeropuerto</label>
-          <select class="form-control" id="field_aeropuerto" data-cy="aeropuerto" name="aeropuerto" formControlName="aeropuerto">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                aeropuertoOption.id === editForm.get('aeropuerto')!.value?.id ? editForm.get('aeropuerto')!.value : aeropuertoOption
-              "
-              *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById"
-            >
-              {{ aeropuertoOption.id }}
-            </option>
-          </select>
+          <div class="d-flex">
+            <div class="mx-1 col-4">
+              <span class="form-control-label" for="field_paises">Pais:</span>
+              <select class="form-control mt-1" id="field_paises" data-cy="paises" name="paises" (change)="cambiarlistaCiudades($event)">
+                <option value="null"></option>
+                <option *ngFor="let paisOption of paisesSharedCollection" value="{{ paisOption.id }}">
+                  {{ paisOption.id }}--{{ paisOption.nombre }}
+                </option>
+              </select>
+            </div>
+            <div class="mx-1 col-4">
+              <span class="form-control-label" for="field_ciudades">Ciudad:</span>
+              <select
+                class="form-control mt-1"
+                id="field_ciudades"
+                data-cy="ciudades"
+                name="ciudades"
+                (change)="cambiarlistaAeropuertos($event)"
+              >
+                <option value="null"></option>
+                <option *ngFor="let ciudadOption of ciudadesSharedCollection; trackBy: trackCiudadById" value="{{ ciudadOption.id }}">
+                  {{ ciudadOption.id }}--{{ ciudadOption.nombre }}
+                </option>
+              </select>
+            </div>
+            <div class="mx-1 col-4">
+              <span class="form-control-label" for="field_aeropuerto">Aeropuerto:</span>
+              <select class="form-control mt-1" id="field_aeropuerto" data-cy="aeropuerto" name="aeropuerto" formControlName="aeropuerto">
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    aeropuertoOption.id === editForm.get('aeropuerto')!.value?.id ? editForm.get('aeropuerto')!.value : aeropuertoOption
+                  "
+                  *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById"
+                >
+                  {{ aeropuertoOption.id }}--{{ aeropuertoOption.nombre }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
+      <div class="d-col">
+        <h2 class="text-muted">Pilotos</h2>
+        <div class="progress">
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="d-flex">
+          <table class="table table-hover d-row" id="tablaPilotos">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.nombre" for="field_nombre">Nombre</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.apellidos" for="field_apellidos">Apellidos</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.pasaporte" for="field_pasaporte">Pasaporte</th>
+                <th class="table-dark" scope="col">
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="customSwitch1"
+                      (change)="mostrarOcultarTabla(0, 'cuerpoTablaPilotos')"
+                    />
+                    <label class="custom-control-label" for="customSwitch1">Mostrar</label>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="d-row" id="cuerpoTablaPilotos" [hidden]="hiddenPilotos">
+              <tr
+                *ngFor="let pilotoOption of pilotosSharedCollection; trackBy: trackPilotoById; let i = index"
+                [ngClass]="{ 'table-active': i % 2 !== 0 }"
+              >
+                <td>{{ pilotoOption.id }}</td>
+                <td>{{ pilotoOption.nombre }}</td>
+                <td>{{ pilotoOption.apellidos }}</td>
+                <td>{{ pilotoOption.pasaporte }}</td>
+                <td>
+                  <button
+                    [ngClass]="{ 'btn-outline-primary': pilotoOption.avion === null, 'btn-outline-danger': pilotoOption.avion !== null }"
+                    id="botonPilotoAnadir{{ i }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirPiloto(pilotoOption, $event.target)"
+                    for="botonAñadir"
+                  >
+                    {{ pilotoOption.avion === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+        <ul class="list-group" id="listaPilotosAbordo">
+          <li *ngFor="let pilotoOption of listaPilotosAbordo" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ pilotoOption.id }}-{{ pilotoOption.nombre }}-{{ pilotoOption.apellidos }}-{{ pilotoOption.pasaporte }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-col">
+        <h2 class="text-muted">Tripulantes</h2>
+        <div class="progress">
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="d-flex">
+          <table class="table table-hover d-row" id="tablaTripulantes">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.nombre" for="field_nombre">Nombre</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.apellidos" for="field_apellidos">Apellidos</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.pasaporte" for="field_pasaporte">Pasaporte</th>
+                <th class="table-dark" scope="col">
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="customSwitch2"
+                      (change)="mostrarOcultarTabla(1, 'cuerpoTablaTripulantes')"
+                    />
+                    <label class="custom-control-label" for="customSwitch2">Mostrar</label>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="d-row" id="cuerpoTablaTripulantes" [hidden]="hiddenTripulantes">
+              <tr
+                *ngFor="let tripulanteOption of tripulantesSharedCollection; trackBy: trackTripulanteById; let i = index"
+                [ngClass]="{ 'table-active': i % 2 !== 0 }"
+              >
+                <td>{{ tripulanteOption.id }}</td>
+                <td>{{ tripulanteOption.nombre }}</td>
+                <td>{{ tripulanteOption.apellidos }}</td>
+                <td>{{ tripulanteOption.pasaporte }}</td>
+                <td>
+                  <button
+                    [ngClass]="{
+                      'btn-outline-primary': tripulanteOption.avion === null,
+                      'btn-outline-danger': tripulanteOption.avion !== null
+                    }"
+                    id="botonTripulanteAnadir{{ i }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirTripulante(tripulanteOption, $event.target)"
+                    for="botonAñadir"
+                  >
+                    {{ tripulanteOption.avion === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <ul class="list-group" id="listaTripulantesAbordo">
+          <li
+            *ngFor="let tripulanteOption of listaTripulantesAbordo"
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            {{ tripulanteOption.id }}-{{ tripulanteOption.nombre }}-{{ tripulanteOption.apellidos }}-{{ tripulanteOption.pasaporte }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-col">
+        <h2 class="text-muted">Pasajeros</h2>
+        <div class="progress">
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar col-4" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="d-flex">
+          <table class="table table-hover d-row" id="tablaCoches">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.nombre" for="field_nombre">Nombre</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.apellidos" for="field_apellidos">Apellidos</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.pasaporte" for="field_pasaporte">Pasaporte</th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.cantidadEquipaje" for="field_cantidadEquipaje">
+                  Cantidad Equipaje
+                </th>
+                <th class="table-dark" scope="col" jhiTranslate="tfcDawApp.pasajero.numeroAsiento" for="field_numeroAsiento">
+                  Numero Asiento
+                </th>
+                <th class="table-dark" scope="col">
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="customSwitch3"
+                      (change)="mostrarOcultarTabla(2, 'cuerpoTablaPasajeros')"
+                    />
+                    <label class="custom-control-label" for="customSwitch3">Mostrar</label>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="d-row" id="cuerpoTablaPasajeros" [hidden]="hiddenPasajeros">
+              <tr
+                *ngFor="let pasajeroOption of pasajerosSharedCollection; trackBy: trackPasajeroById; let i = index"
+                [ngClass]="{ 'table-active': i % 2 !== 0 }"
+              >
+                <td>{{ pasajeroOption.id }}</td>
+                <td>{{ pasajeroOption.nombre }}</td>
+                <td>{{ pasajeroOption.apellidos }}</td>
+                <td>{{ pasajeroOption.pasaporte }}</td>
+                <td>{{ pasajeroOption.cantidadEquipaje }}</td>
+                <td>
+                  <input
+                    id="field_numeroAsiento{{ i }}"
+                    data-cy="numeroAsiento"
+                    type="number"
+                    class="form-control"
+                    name="numeroAsiento"
+                    [value]="
+                      pasajeroOption.numeroAsiento === null || pasajeroOption.numeroAsiento === undefined
+                        ? 10
+                        : pasajeroOption.numeroAsiento
+                    "
+                    value="{{ pasajeroOption.numeroAsiento }}"
+                    disabled
+                  />
+                  <!-- (change)="actualizarAsiento($event,pasajeroOption)" -->
+                </td>
+                <td>
+                  <button
+                    [ngClass]="{
+                      'btn-outline-primary': pasajeroOption.avion === null,
+                      'btn-outline-danger': pasajeroOption.avion !== null
+                    }"
+                    id="botonPasajeroAnadir{{ i }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirPasajero(pasajeroOption, $event.target)"
+                    for="botonAñadir"
+                  >
+                    {{ pasajeroOption.avion === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                  <!-- 
+                    [disabled]="comprobarNumeroAsiento(listaNumeroAsientos[i])"
+                    (click)="anadirPasajero(pasajeroOption, $event.target)"
+                   -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <ul class="list-group" id="listaPasajerosAbordo">
+          <li *ngFor="let pasajeroOption of listaPasajerosAbordo" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ pasajeroOption.id }}-{{ pasajeroOption.nombre }}-{{ pasajeroOption.apellidos }}-{{ pasajeroOption.pasaporte }}-{{
+              pasajeroOption.cantidadEquipaje
+            }}-{{ pasajeroOption.numeroAsiento }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+        <button type="button" id="cancel-save" class="btn btn-secondary mx-4" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
@@ -132,8 +395,8 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
+          [disabled]="editForm.invalid || isSaving || isPilotos || isTripulantes || isPasajeros || isEquipaje"
+          class="btn btn-primary mx-4"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>

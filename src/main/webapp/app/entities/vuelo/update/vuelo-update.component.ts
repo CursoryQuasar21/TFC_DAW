@@ -13,6 +13,13 @@ import { VueloService } from '../service/vuelo.service';
 import { IAvion } from 'app/entities/avion/avion.model';
 import { AvionService } from 'app/entities/avion/service/avion.service';
 
+import { IPais, Pais } from '../../pais/pais.model';
+import { PaisService } from '../../pais/service/pais.service';
+import { ICiudad, Ciudad } from '../../ciudad/ciudad.model';
+import { CiudadService } from '../../ciudad/service/ciudad.service';
+import { IAeropuerto } from 'app/entities/aeropuerto/aeropuerto.model';
+import { AeropuertoService } from 'app/entities/aeropuerto/service/aeropuerto.service';
+
 @Component({
   selector: 'jhi-vuelo-update',
   templateUrl: './vuelo-update.component.html',
@@ -21,6 +28,42 @@ export class VueloUpdateComponent implements OnInit {
   isSaving = false;
 
   avionsCollection: IAvion[] = [];
+
+  // ==================================================================================================================================
+  // SECCION AEROPUERTO
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el origen del avion en funcion del pais seleccionado
+  paisOrigen: IPais | undefined;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el origen del avion en funcion de la ciudad seleccionada
+  ciudadOrigen: ICiudad | undefined;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el origen del avion en funcion del aeropuerto seleccionado
+  aeropuertoOrigen: IAeropuerto | undefined;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el destino del avion en funcion del pais seleccionado
+  paisesSharedCollection: IPais[] = [];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el destino del avion en funcion de la ciudad seleccionada
+  ciudadesSharedCollection: ICiudad[] = [];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Lista para filtrar el destino del avion en funcion del aeropuerto seleccionado
+  aeropuertosSharedCollection: IAeropuerto[] = [];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
 
   editForm = this.fb.group({
     id: [],
@@ -33,6 +76,9 @@ export class VueloUpdateComponent implements OnInit {
   constructor(
     protected vueloService: VueloService,
     protected avionService: AvionService,
+    protected paisService: PaisService,
+    protected ciudadService: CiudadService,
+    protected aeropuertoService: AeropuertoService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -48,6 +94,14 @@ export class VueloUpdateComponent implements OnInit {
       this.updateForm(vuelo);
 
       this.loadRelationshipsOptions();
+
+      if (vuelo.avion !== null) {
+        // Metodo para cargar las zonas de origen del vuelo si tiene
+        this.cargarListaZonasAvionOrigen(vuelo.avion);
+      }
+
+      // Metodo que cargan las listas de las zonas
+      this.loadListasZonas(vuelo);
     });
   }
 
@@ -68,6 +122,183 @@ export class VueloUpdateComponent implements OnInit {
   trackAvionById(index: number, item: IAvion): number {
     return item.id!;
   }
+
+  // ==================================================================================================================================
+  // SECCION DE METODOS PARA MANEJAR LAS LISTAS EN EL HTML
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  trackPaisById(index: number, item: IPais): number {
+    return item.id!;
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  trackCiudadById(index: number, item: ICiudad): number {
+    return item.id!;
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  trackAeropuertoById(index: number, item: IAeropuerto): number {
+    return item.id!;
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
+  // ==================================================================================================================================
+  // SECCION AEROPUERTOS
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Cargar Listas de paises, ciudades y aeropuertos
+  public loadListasZonas(e: any): void {
+    this.loadPaises(e);
+    this.loadCiudades(e);
+    this.loadAeropuertos(e);
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Cargar paises
+  public loadPaises(e: any): void {
+    this.paisesSharedCollection = [];
+    this.paisService.query().subscribe((res: HttpResponse<IPais[]>) => {
+      res.body?.forEach((pais: IPais) => {
+        // Condicion que determina si el pasajero esta asignado a un avion
+        this.paisesSharedCollection.push(pais);
+      });
+    });
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Cargar ciudades
+  public loadCiudades(e: any): void {
+    this.ciudadesSharedCollection = [];
+    this.ciudadService.query().subscribe((res: HttpResponse<ICiudad[]>) => {
+      res.body?.forEach((ciudad: ICiudad) => {
+        this.ciudadesSharedCollection.push(ciudad);
+      });
+    });
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Cargar aeropuertos
+  public loadAeropuertos(e: any): void {
+    this.aeropuertosSharedCollection = [];
+    this.aeropuertoService.query().subscribe((res: HttpResponse<IAeropuerto[]>) => {
+      res.body?.forEach((aeropuerto: IAeropuerto) => {
+        this.aeropuertosSharedCollection.push(aeropuerto);
+      });
+    });
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para actualizar la lista de ciudades en funcion del pais seleccionado
+  public cambiarlistaCiudades(e: any): void {
+    if (e.target.value !== 'null') {
+      this.ciudadesSharedCollection = [];
+      this.paisesSharedCollection.forEach((pais: IPais) => {
+        if (Number(e.target.value) === pais.id) {
+          pais.ciudads?.forEach((ciudad: ICiudad) => {
+            this.ciudadesSharedCollection.push(ciudad);
+          });
+        }
+      });
+    } else {
+      this.loadCiudades(null);
+      this.loadAeropuertos(null);
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para actualizar la lista de aeropuertos en funcion de la ciudad seleccionada
+  public cambiarlistaAeropuertos(e: any): void {
+    if (e.target.value !== 'null') {
+      this.aeropuertosSharedCollection = [];
+      this.ciudadesSharedCollection.forEach((ciudad: ICiudad) => {
+        if (Number(e.target.value) === ciudad.id) {
+          ciudad.aeropuertos?.forEach((aeropuerto: IAeropuerto) => {
+            if (this.aeropuertoOrigen?.id !== aeropuerto.id) {
+              this.aeropuertosSharedCollection.push(aeropuerto);
+            }
+          });
+        }
+      });
+    } else {
+      this.loadAeropuertos(null);
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para cargar las zonas de origen de donde parte el avion
+  public cargarListaZonasAvionOrigen(avion: IAvion): void {
+    if (avion.aeropuerto !== null && avion.aeropuerto !== undefined) {
+      this.aeropuertoService.query().subscribe((res: HttpResponse<IAeropuerto[]>) => {
+        res.body?.forEach((aeropuerto: IAeropuerto) => {
+          if (avion.aeropuerto?.id === aeropuerto.id) {
+            this.aeropuertoOrigen = aeropuerto;
+            if (this.aeropuertoOrigen.ciudad !== null && this.aeropuertoOrigen.ciudad !== undefined) {
+              this.ciudadOrigen = this.aeropuertoOrigen.ciudad;
+              if (this.ciudadOrigen.pais !== null && this.ciudadOrigen.pais !== undefined) {
+                this.paisOrigen = this.ciudadOrigen.pais;
+              }
+            }
+          }
+        });
+      });
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para actualizar las listas de origen y la lista de aeropuertos de destinos
+  public cambiarListaZonasAvionOrigen(e: any): void {
+    if (e.target.value !== null && e.target.value !== undefined) {
+      this.aeropuertoService.query().subscribe((res: HttpResponse<IAeropuerto[]>) => {
+        res.body?.forEach((aeropuerto: IAeropuerto) => {
+          if (Number(e.target.value) === aeropuerto.id) {
+            this.aeropuertoOrigen = aeropuerto;
+            let idE: number | undefined;
+            for (let i = 0; i < this.aeropuertosSharedCollection.length; i++) {
+              if (aeropuerto.id === this.aeropuertosSharedCollection[i].id) {
+                idE = i;
+              }
+            }
+            if (idE !== undefined) {
+              this.aeropuertosSharedCollection.splice(idE, 1);
+            }
+            if (this.aeropuertoOrigen.ciudad !== null && this.aeropuertoOrigen.ciudad !== undefined) {
+              this.ciudadOrigen = this.aeropuertoOrigen.ciudad;
+              if (this.ciudadOrigen.pais !== null && this.ciudadOrigen.pais !== undefined) {
+                this.paisOrigen = this.ciudadOrigen.pais;
+              }
+            }
+          }
+        });
+      });
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVuelo>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(

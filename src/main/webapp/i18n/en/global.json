@@ -126,8 +126,15 @@
       "maxbytes": "This field cannot be more than {{ max }} bytes.",
       "pattern": "This field should follow pattern for {{ pattern }}.",
       "number": "This field should be a number.",
+      "numberPilots": "The plane already has the maximum number of pilots.",
+      "numberCrew": "The plane already has the maximum number of crew member.",
+      "numberLuggage": "This field should be equal amount of luggage.",
+      "amountLuggage": "The selected passenger has already reached his maximum amount of luggage.",
+      "numberAlreadyExist": "The seat number is already in use by another passenger.",
+      "numberSeatsLuggage": "An error has occurred regarding the plane, due to the model and the number of seats and luggage on it.",
       "datetimelocal": "This field should be a date and time.",
-      "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+      "patternLogin": "This field can only contain letters, digits and e-mail addresses.",
+      "patternPasaport": "This field should follow pattern for {{ A12345678 }} or {{ A1234567A }}."
     }
   },
   "error": {

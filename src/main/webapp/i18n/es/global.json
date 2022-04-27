@@ -126,7 +126,14 @@
       "maxbytes": "Este campo no puede tener más de {{max}} bytes.",
       "pattern": "Este campo debe seguir el patrón {{pattern}}.",
       "number": "Este campo debe ser un número.",
-      "datetimelocal": "Este campo debe ser una fecha y hora."
+      "numberPilots": "El avión ya posee la máxima cantidad de pilotos.",
+      "numberCrew": "El avión ya posee la máxima cantidad de tripulantes.",
+      "numberLuggage": "Este campo debe de ser igual al numero de equipajes.",
+      "amountLuggage": "El pasajero seleccionado ya ha alcanzado su maxima cantidad de equipajes.",
+      "numberAlreadyExist": "El numero de asiento ya esta en uso por otro pasajero.",
+      "numberSeatsLuggage": "Se ha producido un error con respecto al avion, por el modelo y la cantidad de asientos y equipajes del mismo.",
+      "datetimelocal": "Este campo debe ser una fecha y hora.",
+      "patternPasaport": "Este campo debe seguir el patrón {{ A12345678 }} o {{ A1234567A }}."
     }
   },
   "error": {

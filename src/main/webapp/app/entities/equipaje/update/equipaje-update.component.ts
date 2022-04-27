@@ -17,6 +17,17 @@ import { PasajeroService } from 'app/entities/pasajero/service/pasajero.service'
 export class EquipajeUpdateComponent implements OnInit {
   isSaving = false;
 
+  // ==================================================================================================================================
+  // SECCION VERIFICADOR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable encargada de verificar si el equipaje seleccionado tiene la posibiidad de asignarse al pasajero seleccionado
+  isEquipaje = false;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   pasajerosSharedCollection: IPasajero[] = [];
 
   editForm = this.fb.group({
@@ -57,6 +68,32 @@ export class EquipajeUpdateComponent implements OnInit {
   trackPasajeroById(index: number, item: IPasajero): number {
     return item.id!;
   }
+
+  // ==================================================================================================================================
+  // SECCION VERIFICADOR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo encargado de verificar si el pasajero seleccionado tiene la posibilidad de poder ser asignado nuevos equipajes, como este
+  public verificarCantidadEquipaje(e: any): void {
+    if (this.editForm.get(['pasajero'])?.value !== null && this.editForm.get(['pasajero'])?.value !== undefined) {
+      if (this.editForm.get(['pasajero'])?.value.cantidadEquipaje === 0) {
+        this.isEquipaje = true;
+      } else {
+        if (this.editForm.get(['pasajero'])?.value.equipaje?.length === this.editForm.get(['pasajero'])?.value.cantidadEquipaje) {
+          this.isEquipaje = true;
+        } else {
+          this.isEquipaje = false;
+        }
+      }
+    } else {
+      this.isEquipaje = false;
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IEquipaje>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(

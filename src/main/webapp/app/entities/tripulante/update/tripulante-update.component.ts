@@ -17,13 +17,32 @@ import { AvionService } from 'app/entities/avion/service/avion.service';
 export class TripulanteUpdateComponent implements OnInit {
   isSaving = false;
 
+  // ==================================================================================================================================
+  // SECCION VERIFICADOR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable encargada de verificar si el avion seleccionado tiene hueco o no
+  isAvion = false;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   avionsSharedCollection: IAvion[] = [];
 
   editForm = this.fb.group({
     id: [],
     nombre: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
     apellidos: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-    pasaporte: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+    pasaporte: [
+      null,
+      [
+        Validators.required,
+        Validators.minLength(9),
+        Validators.maxLength(9),
+        Validators.pattern('[A-Z]{1}[0-9]{8}|[A-Z]{1}[0-9]{7}[A-Z]{1}'),
+      ],
+    ],
     avion: [],
   });
 
@@ -59,6 +78,48 @@ export class TripulanteUpdateComponent implements OnInit {
   trackAvionById(index: number, item: IAvion): number {
     return item.id!;
   }
+
+  // ==================================================================================================================================
+  // SECCION VERIFICAR AVION
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo encargado de verificar si el avion seleccionado tiene la capacidad para albergar a este tripulante
+  public verificarCantidadTripulantes(e: any): void {
+    // Condicion que determina si el campo del avion esta o no definido y tiene algun valor
+    if (this.editForm.get(['avion'])?.value !== null && this.editForm.get(['avion'])?.value !== undefined) {
+      // Condicion que determina si el avion seleccionado posee o no un modelo
+      if (this.editForm.get(['avion'])?.value.modelo !== null && this.editForm.get(['avion'])?.value.modelo !== undefined) {
+        // Condicion que determina si la capacidad de tripulantes en el avion es 0 y siendo asi, la imposibilidad de agregar el tripulante
+        if (this.editForm.get(['avion'])?.value.modelo.cantidadTripulante === 0) {
+          this.isAvion = true;
+        } else {
+          // Condicion que determina si hay tripulantes ya agregados al avion y de no haberlos es seguro que habra plazas para el tripulante
+          if (
+            this.editForm.get(['avion'])?.value.modelo.tripulantes !== null &&
+            this.editForm.get(['avion'])?.value.modelo.tripulantes !== undefined
+          ) {
+            // Condicion que determina si la capacidad de tripulantes y el numero de ellos es igual y de ser asi, la imposibilidad de agregar el tripulante
+            if (this.editForm.get(['avion'])?.value.tripulantes?.length === this.editForm.get(['avion'])?.value.modelo.cantidadTripulante) {
+              this.isAvion = true;
+            } else {
+              this.isAvion = false;
+            }
+          } else {
+            this.isAvion = false;
+          }
+        }
+      } else {
+        this.isAvion = true;
+      }
+    } else {
+      this.isAvion = false;
+    }
+  }
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITripulante>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(

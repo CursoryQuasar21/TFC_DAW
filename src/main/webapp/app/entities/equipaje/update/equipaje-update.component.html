@@ -41,7 +41,14 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="tfcDawApp.equipaje.pasajero" for="field_pasajero">Pasajero</label>
-          <select class="form-control" id="field_pasajero" data-cy="pasajero" name="pasajero" formControlName="pasajero">
+          <select
+            class="form-control"
+            id="field_pasajero"
+            data-cy="pasajero"
+            name="pasajero"
+            formControlName="pasajero"
+            (change)="verificarCantidadEquipaje($event)"
+          >
             <option [ngValue]="null"></option>
             <option
               [ngValue]="pasajeroOption.id === editForm.get('pasajero')!.value?.id ? editForm.get('pasajero')!.value : pasajeroOption"
@@ -50,6 +57,15 @@
               {{ pasajeroOption.id }}
             </option>
           </select>
+          <div>
+            <small
+              class="form-text text-danger"
+              *ngIf="isEquipaje && editForm.get(['pasajero'])!.value"
+              jhiTranslate="entity.validation.amountLuggage"
+            >
+              The selected passenger has already reached his maximum amount of luggage.
+            </small>
+          </div>
         </div>
       </div>
 
@@ -62,7 +78,7 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="editForm.invalid || isSaving || isEquipaje"
           class="btn btn-primary"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
