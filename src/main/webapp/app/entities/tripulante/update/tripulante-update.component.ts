@@ -28,6 +28,7 @@ export class TripulanteUpdateComponent implements OnInit {
   // FIN SECCION
   // ==================================================================================================================================
 
+  cantidadRealTripulante = 0;
   avionsSharedCollection: IAvion[] = [];
 
   editForm = this.fb.group({
@@ -96,15 +97,11 @@ export class TripulanteUpdateComponent implements OnInit {
         } else {
           // Condicion que determina si hay tripulantes ya agregados al avion y de no haberlos es seguro que habra plazas para el tripulante
           if (
-            this.editForm.get(['avion'])?.value.modelo.tripulantes !== null &&
-            this.editForm.get(['avion'])?.value.modelo.tripulantes !== undefined
+            this.editForm.get(['avion'])?.value.modelo.cantidadTripulantes !== null &&
+            this.editForm.get(['avion'])?.value.modelo.cantidadTripulantes !== undefined
           ) {
             // Condicion que determina si la capacidad de tripulantes y el numero de ellos es igual y de ser asi, la imposibilidad de agregar el tripulante
-            if (this.editForm.get(['avion'])?.value.tripulantes?.length === this.editForm.get(['avion'])?.value.modelo.cantidadTripulante) {
-              this.isAvion = true;
-            } else {
-              this.isAvion = false;
-            }
+            this.setCantidadRealTripulantes();
           } else {
             this.isAvion = false;
           }
@@ -117,6 +114,30 @@ export class TripulanteUpdateComponent implements OnInit {
     }
   }
   // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -
+  public setCantidadRealTripulantes(): void {
+    this.cantidadRealTripulante = 0;
+    this.avionService.query().subscribe((res: HttpResponse<IAvion[]>) => {
+      res.body?.forEach((avion: IAvion) => {
+        if (this.editForm.get(['avion'])?.value.id === avion.id) {
+          this.tripulanteService.query().subscribe((res2: HttpResponse<ITripulante[]>) => {
+            res2.body?.forEach((tripulnte: ITripulante) => {
+              if (tripulnte.avion?.id === avion.id && this.editForm.get(['id'])?.value !== tripulnte.id) {
+                this.cantidadRealTripulante++;
+              }
+            });
+            if (this.cantidadRealTripulante === this.editForm.get(['avion'])?.value.modelo.cantidadTripulantes) {
+              this.isAvion = true;
+            } else {
+              this.isAvion = false;
+            }
+          });
+        }
+      });
+    });
+  }
+  // -
 
   // FIN SECCION
   // ==================================================================================================================================

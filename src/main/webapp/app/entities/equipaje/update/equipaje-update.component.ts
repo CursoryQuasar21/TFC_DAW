@@ -28,6 +28,7 @@ export class EquipajeUpdateComponent implements OnInit {
   // FIN SECCION
   // ==================================================================================================================================
 
+  cantidadRealEquipaje = 0;
   pasajerosSharedCollection: IPasajero[] = [];
 
   editForm = this.fb.group({
@@ -80,17 +81,37 @@ export class EquipajeUpdateComponent implements OnInit {
       if (this.editForm.get(['pasajero'])?.value.cantidadEquipaje === 0) {
         this.isEquipaje = true;
       } else {
-        if (this.editForm.get(['pasajero'])?.value.equipaje?.length === this.editForm.get(['pasajero'])?.value.cantidadEquipaje) {
-          this.isEquipaje = true;
-        } else {
-          this.isEquipaje = false;
-        }
+        this.setCantidadRealEquipajes();
       }
     } else {
       this.isEquipaje = false;
     }
   }
   // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -
+  public setCantidadRealEquipajes(): void {
+    this.cantidadRealEquipaje = 0;
+    this.pasajeroService.query().subscribe((res: HttpResponse<IPasajero[]>) => {
+      res.body?.forEach((pasajero: IPasajero) => {
+        if (this.editForm.get(['pasajero'])?.value.id === pasajero.id) {
+          this.equipajeService.query().subscribe((res2: HttpResponse<IEquipaje[]>) => {
+            res2.body?.forEach((equipaje: IEquipaje) => {
+              if (equipaje.pasajero?.id === pasajero.id && this.editForm.get(['id'])?.value !== equipaje.id) {
+                this.cantidadRealEquipaje++;
+              }
+            });
+            if (this.cantidadRealEquipaje === this.editForm.get(['pasajero'])?.value.cantidadEquipaje) {
+              this.isEquipaje = true;
+            } else {
+              this.isEquipaje = false;
+            }
+          });
+        }
+      });
+    });
+  }
+  // -
 
   // FIN SECCION
   // ==================================================================================================================================

@@ -1,7 +1,9 @@
 package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.Pais;
+import com.mycompany.myapp.repository.CiudadRepository;
 import com.mycompany.myapp.repository.PaisRepository;
+import com.mycompany.myapp.service.CiudadService;
 import com.mycompany.myapp.service.PaisService;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,14 +24,29 @@ public class PaisServiceImpl implements PaisService {
 
     private final PaisRepository paisRepository;
 
-    public PaisServiceImpl(PaisRepository paisRepository) {
+    private final CiudadRepository ciudadRepository;
+
+    public PaisServiceImpl(PaisRepository paisRepository, CiudadRepository ciudadRepository) {
         this.paisRepository = paisRepository;
+        this.ciudadRepository = ciudadRepository;
     }
 
     @Override
     public Pais save(Pais pais) {
         log.debug("Request to save Pais : {}", pais);
-        return paisRepository.save(pais);
+        log.debug("Lista Ciudades save: {}", pais.getCiudads());
+        Pais pais2 = pais;
+        if (pais.getId() != null) {
+            ciudadRepository.updateCiudadesDeletePaisByPaisId(pais.getId());
+            if (pais.getCiudads() != null) {
+                pais.getCiudads().forEach(i -> ciudadRepository.updateCiudadSavePaisByPaisIdAndCiudadId(pais.getId(), i.getId()));
+            }
+            paisRepository.save(pais);
+        } else {
+            pais2 = paisRepository.save(pais);
+            if (pais2.getCiudads() != null) pais.getCiudads().forEach(i -> ciudadRepository.save(i));
+        }
+        return pais;
     }
 
     @Override

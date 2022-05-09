@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.Pasajero;
+import com.mycompany.myapp.repository.EquipajeRepository;
 import com.mycompany.myapp.repository.PasajeroRepository;
 import com.mycompany.myapp.service.PasajeroService;
 import java.util.Optional;
@@ -22,14 +23,30 @@ public class PasajeroServiceImpl implements PasajeroService {
 
     private final PasajeroRepository pasajeroRepository;
 
-    public PasajeroServiceImpl(PasajeroRepository pasajeroRepository) {
+    private final EquipajeRepository equipajeRepository;
+
+    public PasajeroServiceImpl(PasajeroRepository pasajeroRepository, EquipajeRepository equipajeRepository) {
         this.pasajeroRepository = pasajeroRepository;
+        this.equipajeRepository = equipajeRepository;
     }
 
     @Override
     public Pasajero save(Pasajero pasajero) {
         log.debug("Request to save Pasajero : {}", pasajero);
-        return pasajeroRepository.save(pasajero);
+        Pasajero pasajero2 = pasajero;
+        if (pasajero.getId() != null) {
+            equipajeRepository.updateEquipajesDeletePasajeroByPasajeroId(pasajero.getId());
+            if (pasajero.getEquipajes() != null) {
+                pasajero
+                    .getEquipajes()
+                    .forEach(i -> equipajeRepository.updateEquipajeSavePasajeroByPasajeroIdAndEquipajeId(pasajero.getId(), i.getId()));
+            }
+            pasajeroRepository.save(pasajero);
+        } else {
+            pasajero2 = pasajeroRepository.save(pasajero);
+            if (pasajero2.getEquipajes() != null) pasajero.getEquipajes().forEach(i -> equipajeRepository.save(i));
+        }
+        return pasajero;
     }
 
     @Override

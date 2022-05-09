@@ -52,6 +52,7 @@ export class CiudadUpdateComponent implements OnInit {
     id: [],
     nombre: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     pais: [],
+    aeropuertos: [],
   });
 
   constructor(
@@ -64,8 +65,11 @@ export class CiudadUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ ciudad }) => {
+      console.log('antes');
+      console.log(ciudad);
       this.updateForm(ciudad);
-
+      console.log('despues');
+      console.log(ciudad);
       this.loadRelationshipsOptions();
 
       // -------------------------------------------------------------------------------------------------------------------------------
@@ -256,6 +260,7 @@ export class CiudadUpdateComponent implements OnInit {
       id: ciudad.id,
       nombre: ciudad.nombre,
       pais: ciudad.pais,
+      aeropuertos: ciudad.aeropuertos,
     });
 
     this.paisSharedCollection = this.paisService.addPaisToCollectionIfMissing(this.paisSharedCollection, ciudad.pais);
@@ -275,6 +280,7 @@ export class CiudadUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
       pais: this.editForm.get(['pais'])!.value,
+      aeropuertos: this.listaAeropuertosSeleccionados,
     };
   }
 }

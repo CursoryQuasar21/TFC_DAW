@@ -12,7 +12,7 @@ import { IAvion, Avion } from '../avion.model';
 import { AvionService } from '../service/avion.service';
 import { IModelo } from 'app/entities/modelo/modelo.model';
 import { ModeloService } from 'app/entities/modelo/service/modelo.service';
-import { IAeropuerto } from 'app/entities/aeropuerto/aeropuerto.model';
+import { Aeropuerto, IAeropuerto } from 'app/entities/aeropuerto/aeropuerto.model';
 import { AeropuertoService } from 'app/entities/aeropuerto/service/aeropuerto.service';
 import { IPiloto, Piloto } from '../../piloto/piloto.model';
 import { PilotoService } from '../../piloto/service/piloto.service';
@@ -291,8 +291,8 @@ export class AvionUpdateComponent implements OnInit {
   // Cargar Listas de paises, ciudades y aeropuertos
   public loadListasZonas(e: any): void {
     this.loadPaises(e);
-    this.loadCiudades(e);
-    // this.loadAeropuertos(e);
+    this.loadCiudades(null);
+    //this.loadAeropuertos(e);
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -317,7 +317,13 @@ export class AvionUpdateComponent implements OnInit {
     this.ciudadesSharedCollection = [];
     this.ciudadService.query().subscribe((res: HttpResponse<ICiudad[]>) => {
       res.body?.forEach((ciudad: ICiudad) => {
-        this.ciudadesSharedCollection.push(ciudad);
+        if (e === null) {
+          this.ciudadesSharedCollection.push(ciudad);
+        } else {
+          if (e === ciudad.id) {
+            this.ciudadesSharedCollection.push(ciudad);
+          }
+        }
       });
     });
   }
@@ -330,7 +336,13 @@ export class AvionUpdateComponent implements OnInit {
     this.aeropuertosSharedCollection = [];
     this.aeropuertoService.query().subscribe((res: HttpResponse<IAeropuerto[]>) => {
       res.body?.forEach((aeropuerto: IAeropuerto) => {
-        this.aeropuertosSharedCollection.push(aeropuerto);
+        if (e === null) {
+          this.aeropuertosSharedCollection.push(aeropuerto);
+        } else {
+          if (e === aeropuerto.ciudad?.id) {
+            this.aeropuertosSharedCollection.push(aeropuerto);
+          }
+        }
       });
     });
   }
@@ -344,9 +356,7 @@ export class AvionUpdateComponent implements OnInit {
       this.ciudadesSharedCollection = [];
       this.paisesSharedCollection.forEach((pais: IPais) => {
         if (Number(e.target.value) === pais.id) {
-          pais.ciudads?.forEach((ciudad: ICiudad) => {
-            this.ciudadesSharedCollection.push(ciudad);
-          });
+          this.loadCiudades(Number(e.target.value));
         }
       });
     } else {
@@ -364,9 +374,7 @@ export class AvionUpdateComponent implements OnInit {
       this.aeropuertosSharedCollection = [];
       this.ciudadesSharedCollection.forEach((ciudad: ICiudad) => {
         if (Number(e.target.value) === ciudad.id) {
-          ciudad.aeropuertos?.forEach((aeropuerto: IAeropuerto) => {
-            this.aeropuertosSharedCollection.push(aeropuerto);
-          });
+          this.loadAeropuertos(Number(e.target.value));
         }
       });
     } else {
@@ -385,12 +393,10 @@ export class AvionUpdateComponent implements OnInit {
   // Metodo Agregado
   // Metodo para asignar el numero de asiento si el pasajero no dispone de uno en el avion
   public asignarAsiento(pasajero: Pasajero): Pasajero {
-    if (pasajero.avion === null) {
-      pasajero.numeroAsiento = this.actualizarListaAsientos();
+    if (pasajero.numeroAsiento !== null && pasajero.numeroAsiento !== undefined) {
+      this.eliminarAsientoListaAsientos(pasajero.numeroAsiento);
     } else {
-      if (pasajero.numeroAsiento !== null && pasajero.numeroAsiento !== undefined) {
-        this.eliminarAsientoListaAsientos(pasajero.numeroAsiento);
-      }
+      pasajero.numeroAsiento = this.actualizarListaAsientos();
     }
     return pasajero;
   }
@@ -472,11 +478,10 @@ export class AvionUpdateComponent implements OnInit {
     // Peticion al servidor para acceder a la basse de datos y obtener la lista de pilotos
     this.pilotoService.query().subscribe((res: HttpResponse<Piloto[]>) => {
       res.body?.forEach((piloto: IPiloto) => {
-        const piloto1 = this.asignarAsiento(piloto);
         // Condicion que determina si el piloto esta asignado a un avion
         if (piloto.avion === null) {
           // El piloto no esta asigando a un avion y por tanto se puede subir al avion
-          this.pilotosSharedCollection.push(piloto1);
+          this.pilotosSharedCollection.push(piloto);
         } else {
           // Condicion que determina si el piloto que tiene un avion asignada es el mismo avion que la que se esta mostrando
           if (avion.id === piloto.avion?.id) {
@@ -503,19 +508,18 @@ export class AvionUpdateComponent implements OnInit {
   // Metodo que nos devuelve todos los tripulantes y que en funcion de estos modifica la coleccion de tripulantesAbordo
   public loadTripulantes(avion: Avion): void {
     // Peticion al servidor para acceder a la basse de datos y obtener la lista de tripulantes
-    this.tripulanteService.query().subscribe((res: HttpResponse<IPasajero[]>) => {
-      res.body?.forEach((pasajero: ITripulante) => {
-        const pasajero1 = this.asignarAsiento(pasajero);
-        // Condicion que determina si el pasajero esta asignado a un avion
-        if (pasajero.avion === null) {
-          // El pasajero no esta asigando a un avion y por tanto se puede subir al avion
-          this.tripulantesSharedCollection.push(pasajero1);
+    this.tripulanteService.query().subscribe((res: HttpResponse<ITripulante[]>) => {
+      res.body?.forEach((tripulante: ITripulante) => {
+        // Condicion que determina si el tripulante esta asignado a un avion
+        if (tripulante.avion === null) {
+          // El tripulante no esta asigando a un avion y por tanto se puede subir al avion
+          this.tripulantesSharedCollection.push(tripulante);
         } else {
-          // Condicion que determina si el pasajero que tiene un avion asignada es el mismo avion que la que se esta mostrando
-          if (avion.id === pasajero.avion?.id) {
-            this.tripulantesSharedCollection.push(pasajero);
-            // Refleja que el pasajero ya esta añadido a la lista de tripulantes ya que se añadio anteriormente en una modificacion anterior del avion
-            this.anadirTripulanteAbordo(pasajero);
+          // Condicion que determina si el tripulante que tiene un avion asignada es el mismo avion que la que se esta mostrando
+          if (avion.id === tripulante.avion?.id) {
+            this.tripulantesSharedCollection.push(tripulante);
+            // Refleja que el tripulante ya esta añadido a la lista de tripulantes ya que se añadio anteriormente en una modificacion anterior del avion
+            this.anadirTripulanteAbordo(tripulante);
           }
         }
       });
@@ -525,9 +529,9 @@ export class AvionUpdateComponent implements OnInit {
 
   // -------------------------------------------------------------------------------------------------------------------------------
   // Metodo Agregado
-  // Metodo que añade un pasajero a la lista de tripulantes
-  public anadirTripulanteAbordo(pasajero: ITripulante): void {
-    this.listaTripulantesAbordo.push(pasajero);
+  // Metodo que añade un tripulante a la lista de tripulantes
+  public anadirTripulanteAbordo(tripulante: ITripulante): void {
+    this.listaTripulantesAbordo.push(tripulante);
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -596,11 +600,7 @@ export class AvionUpdateComponent implements OnInit {
       e.classList.add('btn-outline-primary');
       e.textContent = 'Añadir';
     }
-    //  eslint-disable-next-line no-console
-    console.log(this.isPilotos);
     this.verificarCantidadPilotos();
-    //  eslint-disable-next-line no-console
-    console.log(this.isPilotos);
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -645,11 +645,7 @@ export class AvionUpdateComponent implements OnInit {
       e.classList.add('btn-outline-primary');
       e.textContent = 'Añadir';
     }
-    //  eslint-disable-next-line no-console
-    console.log(this.isTripulantes);
     this.verificarCantidadTripulantes();
-    //  eslint-disable-next-line no-console
-    console.log(this.isTripulantes);
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -694,16 +690,8 @@ export class AvionUpdateComponent implements OnInit {
       e.classList.add('btn-outline-primary');
       e.textContent = 'Añadir';
     }
-    //  eslint-disable-next-line no-console
-    console.log(this.isPasajeros);
-    //  eslint-disable-next-line no-console
-    console.log(this.isEquipaje);
     this.verificarCantidadPasajeros();
     this.verificarCantidadEquipaje();
-    //  eslint-disable-next-line no-console
-    console.log(this.isPasajeros);
-    //  eslint-disable-next-line no-console
-    console.log(this.isEquipaje);
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -815,10 +803,10 @@ export class AvionUpdateComponent implements OnInit {
   // Metodo para verificar la cantidad de pasajeros respecto al modelo seleccionado
   public verificarCantidadPasajeros(): void {
     if (this.editForm.get(['modelo'])?.value !== null && this.editForm.get(['modelo'])?.value !== undefined) {
-      if (this.editForm.get(['modelo'])!.value.cantidadPasajeros <= this.listaPasajerosAbordo.length) {
-        this.isPasajeros = true;
-      } else {
+      if (this.listaPasajerosAbordo.length <= this.editForm.get(['modelo'])!.value.cantidadPasajeros) {
         this.isPasajeros = false;
+      } else {
+        this.isPasajeros = true;
       }
     }
   }
@@ -829,10 +817,10 @@ export class AvionUpdateComponent implements OnInit {
   // Metodo para verificar la cantidad de equipaje respecto al modelo seleccionado
   public verificarCantidadEquipaje(): void {
     if (this.editForm.get(['modelo'])?.value !== null && this.editForm.get(['modelo'])?.value !== undefined) {
-      if (this.editForm.get(['modelo'])!.value.cantidadEquipaje <= this.getCantidadEquipaje()) {
-        this.isEquipaje = true;
-      } else {
+      if (this.getCantidadEquipaje() <= this.editForm.get(['modelo'])!.value.cantidadEquipajes) {
         this.isEquipaje = false;
+      } else {
+        this.isEquipaje = true;
       }
     }
   }
@@ -904,6 +892,9 @@ export class AvionUpdateComponent implements OnInit {
         : undefined,
       modelo: this.editForm.get(['modelo'])!.value,
       aeropuerto: this.editForm.get(['aeropuerto'])!.value,
+      pilotos: this.listaPilotosAbordo,
+      tripulantes: this.listaTripulantesAbordo,
+      pasajeros: this.listaPasajerosAbordo,
     };
   }
 }

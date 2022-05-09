@@ -47,6 +47,7 @@ export class PaisUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     nombre: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+    ciudads: [],
   });
 
   constructor(
@@ -240,6 +241,7 @@ export class PaisUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: pais.id,
       nombre: pais.nombre,
+      ciudads: pais.ciudads,
     });
   }
 
@@ -248,6 +250,7 @@ export class PaisUpdateComponent implements OnInit {
       ...new Pais(),
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
+      ciudads: this.listaCiudadesSeleccionadas,
     };
   }
 }

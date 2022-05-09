@@ -23,6 +23,11 @@ export class PasajeroUpdateComponent implements OnInit {
   // SECCION VERIFICADOR
 
   // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable encargada de verificar si el avion seleccionado tiene hueco o no
+  isAvion = false;
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
   // Variable encargada de verificar si el pasajero seleccionado tiene todos los equipajes o no
   isNumeroE = false;
   // -------------------------------------------------------------------------------------------------------------------------------
@@ -42,6 +47,7 @@ export class PasajeroUpdateComponent implements OnInit {
 
   hiddenEquipajes = true;
   pasajero: any;
+  cantidadRealPasajero = 0;
 
   avionsSharedCollection: IAvion[] = [];
 
@@ -58,7 +64,7 @@ export class PasajeroUpdateComponent implements OnInit {
         Validators.required,
         Validators.minLength(9),
         Validators.maxLength(9),
-        Validators.pattern('[A-Z]{1}[0-9]{8}|[A-Z]{1}[0-9]{7}[A-Z]{1}'),
+        Validators.pattern('[0-9]{8}[A-Z]{1}|[A-Z]{1}[0-9]{7}[A-Z]{1}'),
       ],
     ],
     cantidadEquipaje: [null, [Validators.required, Validators.min(0), Validators.max(9)]],
@@ -131,55 +137,83 @@ export class PasajeroUpdateComponent implements OnInit {
     this.editForm.patchValue({
       numeroAsiento: null,
     });
-    this.verificarNumeroAsiento();
+    this.verificarAsiento();
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------------------------------------------
   // Metodo Agregado
   // Metodo para gestionar las verificaciones necesarioas para el control de asignacion de control numeroAsiento
-  public verificarNumeroAsiento(): void {
+  public verificarAsiento(): void {
     // Condicion que determina si el campo del avion esta o no definido y tiene algun valor
     if (this.editForm.get(['avion'])?.value !== null && this.editForm.get(['avion'])?.value !== undefined) {
       // Condicion que determina si el avion seleccionado posee o no un modelo
       if (this.editForm.get(['avion'])?.value.modelo !== null && this.editForm.get(['avion'])?.value.modelo !== undefined) {
         // Condicion que determina si la capacidad de pasajeros en el avion es 0 y siendo asi, la imposibilidad de agregar el pasajero
         if (this.editForm.get(['avion'])?.value.modelo.cantidadPasajeros === 0) {
+          console.log('0');
           this.isNumeroA = true;
         } else {
           // Condicion que determina si hay pasajeros ya agregados al avion y de no haberlos es seguro que habra plazas para el pasajero
-          if (
-            this.editForm.get(['avion'])?.value.modelo.pasajeros !== null &&
-            this.editForm.get(['avion'])?.value.modelo.pasajeros !== undefined
-          ) {
-            let existe = false;
-            for (let i = 0; i < this.editForm.get(['avion'])?.value.pasajeros.length; i++) {
-              // Condicion que determina si el numero de asiento ya esta siendo utilizando por otro pasajero
-              if (this.editForm.get(['avion'])?.value.pasajeros[i].numeroAsiento === this.editForm.get(['numeroAsiento'])?.value) {
-                existe = true;
-              }
-            }
-            if (existe === true) {
-              this.isNumeroAExiste = true;
-            } else {
-              this.isNumeroAExiste = false;
-            }
-          } else {
-            this.isNumeroA = false;
-          }
+          this.setCantidadRealPasajeros();
         }
       } else {
+        console.log('1');
         this.isNumeroA = true;
       }
     } else {
       if (this.editForm.get(['numeroAsiento'])?.value === null) {
+        console.log('2');
         this.isNumeroA = false;
       } else {
+        console.log('3');
         this.isNumeroA = true;
       }
     }
   }
   // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -
+  public setCantidadRealPasajeros(): void {
+    this.cantidadRealPasajero = 0;
+    this.avionService.query().subscribe((res: HttpResponse<IAvion[]>) => {
+      res.body?.forEach((avion: IAvion) => {
+        if (this.editForm.get(['avion'])?.value.id === avion.id) {
+          this.pasajeroService.query().subscribe((res2: HttpResponse<IPasajero[]>) => {
+            res2.body?.forEach((pasajero: IPasajero) => {
+              if (pasajero.avion?.id === avion.id && this.editForm.get(['id'])?.value !== pasajero.id) {
+                this.cantidadRealPasajero++;
+              }
+            });
+            if (this.cantidadRealPasajero === this.editForm.get(['avion'])?.value.modelo.cantidadPasajeros) {
+              this.isAvion = true;
+            } else {
+              this.isAvion = false;
+              this.verificarNumeroAsiento();
+            }
+          });
+        }
+      });
+    });
+  }
+  // -
+  public verificarNumeroAsiento(): void {
+    this.pasajeroService.query().subscribe((res: HttpResponse<IPasajero[]>) => {
+      let verificador = false;
+      res.body?.forEach((pasajero: IPasajero) => {
+        if (this.editForm.get(['id'])?.value !== pasajero.id && this.editForm.get(['numeroAsiento'])?.value === pasajero.numeroAsiento) {
+          verificador = true;
+        }
+      });
+      this.isNumeroAExiste = verificador;
+      if (this.isNumeroA === true) {
+        console.log('4');
+        this.isNumeroA = false;
+      }
+      console.log('5');
+    });
+  }
+  //-
 
   // FIN SECCION
   // ==================================================================================================================================
@@ -378,6 +412,7 @@ export class PasajeroUpdateComponent implements OnInit {
       cantidadEquipaje: this.editForm.get(['cantidadEquipaje'])!.value,
       numeroAsiento: this.editForm.get(['numeroAsiento'])!.value,
       avion: this.editForm.get(['avion'])!.value,
+      equipajes: this.listaEquipajeP,
     };
   }
 }

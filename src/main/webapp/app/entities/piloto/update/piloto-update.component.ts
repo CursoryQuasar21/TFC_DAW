@@ -28,6 +28,7 @@ export class PilotoUpdateComponent implements OnInit {
   // FIN SECCION
   // ==================================================================================================================================
 
+  cantidadRealPiloto = 0;
   avionsSharedCollection: IAvion[] = [];
 
   editForm = this.fb.group({
@@ -91,20 +92,16 @@ export class PilotoUpdateComponent implements OnInit {
       // Condicion que determina si el avion seleccionado posee o no un modelo
       if (this.editForm.get(['avion'])?.value.modelo !== null && this.editForm.get(['avion'])?.value.modelo !== undefined) {
         // Condicion que determina si la capacidad de pilotos en el avion es 0 y siendo asi, la imposibilidad de agregar el piloto
-        if (this.editForm.get(['avion'])?.value.modelo.cantidadPiloto === 0) {
+        if (this.editForm.get(['avion'])?.value.modelo.cantidadPilotos === 0) {
           this.isAvion = true;
         } else {
           // Condicion que determina si hay pilotos ya agregados al avion y de no haberlos es seguro que habra plazas para el piloto
           if (
-            this.editForm.get(['avion'])?.value.modelo.pilotos !== null &&
-            this.editForm.get(['avion'])?.value.modelo.pilotos !== undefined
+            this.editForm.get(['avion'])?.value.modelo.cantidadPilotos !== null &&
+            this.editForm.get(['avion'])?.value.modelo.cantidadPilotos !== undefined
           ) {
             // Condicion que determina si la capacidad de pilotos y el numero de ellos es igual y de ser asi, la imposibilidad de agregar el piloto
-            if (this.editForm.get(['avion'])?.value.pilotos?.length === this.editForm.get(['avion'])?.value.modelo.cantidadPiloto) {
-              this.isAvion = true;
-            } else {
-              this.isAvion = false;
-            }
+            this.setCantidadRealPilotos();
           } else {
             this.isAvion = false;
           }
@@ -117,6 +114,30 @@ export class PilotoUpdateComponent implements OnInit {
     }
   }
   // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -
+  public setCantidadRealPilotos(): void {
+    this.cantidadRealPiloto = 0;
+    this.avionService.query().subscribe((res: HttpResponse<IAvion[]>) => {
+      res.body?.forEach((avion: IAvion) => {
+        if (this.editForm.get(['avion'])?.value.id === avion.id) {
+          this.pilotoService.query().subscribe((res2: HttpResponse<IPiloto[]>) => {
+            res2.body?.forEach((piloto: IPiloto) => {
+              if (piloto.avion?.id === avion.id && this.editForm.get(['id'])?.value !== piloto.id) {
+                this.cantidadRealPiloto++;
+              }
+            });
+            if (this.cantidadRealPiloto === this.editForm.get(['avion'])?.value.modelo.cantidadPilotos) {
+              this.isAvion = true;
+            } else {
+              this.isAvion = false;
+            }
+          });
+        }
+      });
+    });
+  }
+  // -
 
   // FIN SECCION
   // ==================================================================================================================================
