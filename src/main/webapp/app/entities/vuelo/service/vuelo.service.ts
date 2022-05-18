@@ -19,6 +19,8 @@ export class VueloService {
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   create(vuelo: IVuelo): Observable<EntityResponseType> {
+    console.log('create');
+    console.log(vuelo);
     const copy = this.convertDateFromClient(vuelo);
     return this.http
       .post<IVuelo>(this.resourceUrl, copy, { observe: 'response' })
@@ -26,6 +28,8 @@ export class VueloService {
   }
 
   update(vuelo: IVuelo): Observable<EntityResponseType> {
+    console.log('update');
+    console.log(vuelo.aeropuertos);
     const copy = this.convertDateFromClient(vuelo);
     return this.http
       .put<IVuelo>(`${this.resourceUrl}/${getVueloIdentifier(vuelo) as number}`, copy, { observe: 'response' })

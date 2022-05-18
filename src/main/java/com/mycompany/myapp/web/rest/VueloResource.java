@@ -3,6 +3,7 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.domain.Vuelo;
 import com.mycompany.myapp.repository.VueloRepository;
 import com.mycompany.myapp.service.VueloService;
+import com.mycompany.myapp.service.impl.VueloServiceImpl;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;

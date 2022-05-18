@@ -152,7 +152,7 @@
       </div>
 
       <div class="form-group">
-        <label class="form-control-label" for="field_aeropuerto">Destino</label>
+        <label class="form-control-label" for="field_aeropuertoDestino">Destino</label>
         <div class="d-flex">
           <div class="mx-1 col-4">
             <span class="form-control-label" for="field_paises">Pais:</span>
@@ -179,10 +179,19 @@
             </select>
           </div>
           <div class="mx-1 col-4">
-            <span class="form-control-label" for="field_aeropuerto">Aeropuerto:</span>
-            <select class="form-control mt-1" id="field_aeropuerto" data-cy="aeropuerto" name="aeropuerto">
-              <option [ngValue]="null"></option>
-              <option *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById">
+            <span class="form-control-label" for="field_aeropuertoDestino">Aeropuerto:</span>
+            <select
+              class="form-control mt-1"
+              id="field_aeropuertoDestino"
+              data-cy="aeropuerto"
+              name="aeropuerto"
+              (change)="actualizarDestino($event)"
+            >
+              <option value="null"></option>
+              <option
+                *ngFor="let aeropuertoOption of aeropuertosSharedCollection; trackBy: trackAeropuertoById"
+                value="{{ aeropuertoOption.id }}"
+              >
                 {{ aeropuertoOption.id }}--{{ aeropuertoOption.nombre }}
               </option>
             </select>
