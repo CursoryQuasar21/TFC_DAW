@@ -29,6 +29,17 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 
+import { FilterPipe } from './pipes/filter.pipe';
+// import { FilterCiudadesPipe } from './pipes/filter/entities/ciudad/filter-ciudades.pipe';
+// import { FilterPaisesPipe } from './pipes/filter/entities/pais/filter-paises.pipe';
+// import { FilterAvionesPipe } from './pipes/filter/entities/avion/filter-aviones.pipe';
+// import { FilterEquipajesPipe } from './pipes/filter/entities/equipaje/filter-equipajes.pipe';
+// import { FilterModelosPipe } from './pipes/filter/entities/modelo/filter-modelos.pipe';
+// import { FilterPasajerosPipe } from './pipes/filter/entities/pasajero/filter-pasajeros.pipe';
+// import { FilterPilotosPipe } from './pipes/filter/entities/piloto/filter-pilotos.pipe';
+// import { FilterTripulantesPipe } from './pipes/filter/entities/tripulante/filter-tripulantes.pipe';
+// import { FilterVuelosPipe } from './pipes/filter/entities/vuelo/filter-vuelos.pipe';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -59,7 +70,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent, FilterPipe],
   bootstrap: [MainComponent],
 })
 export class AppModule {

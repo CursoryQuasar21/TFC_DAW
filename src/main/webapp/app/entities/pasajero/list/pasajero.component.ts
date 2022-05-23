@@ -24,6 +24,22 @@ export class PasajeroComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  // ==================================================================================================================================
+  // SECCION VARIABLES PARA FILTRAR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los atributos de los objetos pasajero
+  atributos = ['id', 'nombre', 'apellidos', 'pasaporte', 'cantidadEquipaje', 'numeroAsiento', 'avion'];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los filtros de la lista de pasajeros
+  filtro: any = [];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   constructor(
     protected pasajeroService: PasajeroService,
     protected activatedRoute: ActivatedRoute,

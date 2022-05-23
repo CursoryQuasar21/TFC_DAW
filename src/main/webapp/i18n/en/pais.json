@@ -2,24 +2,28 @@
   "tfcDawApp": {
     "pais": {
       "home": {
-        "title": "Pais",
+        "title": "Countrys",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Pais",
-        "createOrEditLabel": "Create or edit a Pais",
-        "notFound": "No Pais found"
+        "createLabel": "Create a new Country",
+        "createOrEditLabel": "Create or edit a Country",
+        "notFound": "No Country found"
       },
-      "created": "A new Pais is created with identifier {{ param }}",
-      "updated": "A Pais is updated with identifier {{ param }}",
-      "deleted": "A Pais is deleted with identifier {{ param }}",
+      "created": "A new Country is created with identifier {{ param }}",
+      "updated": "A Country is updated with identifier {{ param }}",
+      "deleted": "A Country is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Pais {{ id }}?"
+        "question": "Are you sure you want to delete Country {{ id }}?"
       },
       "detail": {
-        "title": "Pais"
+        "title": "Country"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "ciudad": "Ciudad"
+      "nombre": "Name",
+      "ciudad": "City",
+      "filter": {
+        "id": "Search by Id",
+        "nombre": "Search by Name"
+      }
     }
   }
 }

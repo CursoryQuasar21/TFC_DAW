@@ -21,7 +21,14 @@
       "nombre": "Nombre",
       "apellidos": "Apellidos",
       "pasaporte": "Pasaporte",
-      "avion": "Avion"
+      "avion": "Avion",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Nombre",
+        "apellidos": "Buscar por Apellidos",
+        "pasaporte": "Buscar por Pasaporte",
+        "avion": "Buscar por Id del Avion"
+      }
     }
   }
 }

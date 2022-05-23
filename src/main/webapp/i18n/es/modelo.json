@@ -24,7 +24,17 @@
       "cantidadTripulantes": "Cantidad Tripulantes",
       "cantidadPasajeros": "Cantidad Pasajeros",
       "cantidadEquipajes": "Cantidad Equipajes",
-      "avion": "Avion"
+      "avion": "Avion",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Motores",
+        "motores": "Buscar por Nombre",
+        "cantidadPilotos": "Buscar por Numero de Pilotos",
+        "cantidadTripulantes": "Buscar por Numero de Tripulantes",
+        "cantidadPasajeros": "Buscar por Numero de Pasageros",
+        "cantidadEquipajes": "Buscar por Cantidad de Equipaje",
+        "avion": "Buscar por Id del Avion"
+      }
     }
   }
 }

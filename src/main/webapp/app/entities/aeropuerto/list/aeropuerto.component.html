@@ -43,7 +43,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let aeropuerto of aeropuertos; trackBy: trackId" data-cy="entityTable">
+        <tr>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.aeropuerto.filter.id' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[0]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.aeropuerto.filter.nombre' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[1]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.aeropuerto.filter.ciudad' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[2]"
+              name="filtro"
+            />
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let aeropuerto of aeropuertos | filterAeropuertos: atributos:filtro; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/aeropuerto', aeropuerto.id, 'view']">{{ aeropuerto.id }}</a>
           </td>

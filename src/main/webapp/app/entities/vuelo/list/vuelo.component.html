@@ -45,7 +45,68 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let vuelo of vuelos; trackBy: trackId" data-cy="entityTable">
+        <tr>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.id' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[0]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="datetime-local"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.fechaOrigen' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[1]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="datetime-local"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.fechaDestino' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[2]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.precioMin' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[3]"
+              name="filtro"
+            />
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.precioMax' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[4]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.vuelo.filter.avion' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[5]"
+              name="filtro"
+            />
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let vuelo of vuelos | filterVuelos: atributos:filtro; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/vuelo', vuelo.id, 'view']">{{ vuelo.id }}</a>
           </td>

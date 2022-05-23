@@ -21,7 +21,12 @@
       "nombre": "Nombre",
       "avion": "Avion",
       "vuelo": "Vuelo",
-      "ciudad": "Ciudad"
+      "ciudad": "Ciudad",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Nombre",
+        "ciudad": "Buscar por Ciudad"
+      }
     }
   }
 }

@@ -7,9 +7,11 @@ import { PaisUpdateComponent } from './update/pais-update.component';
 import { PaisDeleteDialogComponent } from './delete/pais-delete-dialog.component';
 import { PaisRoutingModule } from './route/pais-routing.module';
 
+import { FormsModule } from '@angular/forms';
+import { FilterPaisesPipe } from 'app/pipes/filter/entities/pais/filter-paises.pipe';
 @NgModule({
-  imports: [SharedModule, PaisRoutingModule],
-  declarations: [PaisComponent, PaisDetailComponent, PaisUpdateComponent, PaisDeleteDialogComponent],
+  imports: [SharedModule, PaisRoutingModule, FormsModule],
+  declarations: [PaisComponent, PaisDetailComponent, PaisUpdateComponent, PaisDeleteDialogComponent, FilterPaisesPipe],
   entryComponents: [PaisDeleteDialogComponent],
 })
 export class PaisModule {}

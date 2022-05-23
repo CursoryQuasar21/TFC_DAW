@@ -7,9 +7,11 @@ import { VueloUpdateComponent } from './update/vuelo-update.component';
 import { VueloDeleteDialogComponent } from './delete/vuelo-delete-dialog.component';
 import { VueloRoutingModule } from './route/vuelo-routing.module';
 
+import { FormsModule } from '@angular/forms';
+import { FilterVuelosPipe } from 'app/pipes/filter/entities/vuelo/filter-vuelos.pipe';
 @NgModule({
-  imports: [SharedModule, VueloRoutingModule],
-  declarations: [VueloComponent, VueloDetailComponent, VueloUpdateComponent, VueloDeleteDialogComponent],
+  imports: [SharedModule, VueloRoutingModule, FormsModule],
+  declarations: [VueloComponent, VueloDetailComponent, VueloUpdateComponent, VueloDeleteDialogComponent, FilterVuelosPipe],
   entryComponents: [VueloDeleteDialogComponent],
 })
 export class VueloModule {}

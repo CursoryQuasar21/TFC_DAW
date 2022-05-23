@@ -22,7 +22,13 @@
       "fechaDestino": "Fecha Destino",
       "precio": "Precio",
       "avion": "Avion",
-      "aeropuerto": "Aeropuerto"
+      "aeropuerto": "Aeropuerto",
+      "filter": {
+        "id": "Buscar por Id",
+        "precioMin": "Buscar por Precio Minimo",
+        "precioMax": "Buscar por Precio Maximo",
+        "avion": "Buscar por Id del Avion"
+      }
     }
   }
 }

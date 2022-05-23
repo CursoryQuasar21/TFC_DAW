@@ -7,9 +7,11 @@ import { EquipajeUpdateComponent } from './update/equipaje-update.component';
 import { EquipajeDeleteDialogComponent } from './delete/equipaje-delete-dialog.component';
 import { EquipajeRoutingModule } from './route/equipaje-routing.module';
 
+import { FormsModule } from '@angular/forms';
+import { FilterEquipajesPipe } from 'app/pipes/filter/entities/equipaje/filter-equipajes.pipe';
 @NgModule({
-  imports: [SharedModule, EquipajeRoutingModule],
-  declarations: [EquipajeComponent, EquipajeDetailComponent, EquipajeUpdateComponent, EquipajeDeleteDialogComponent],
+  imports: [SharedModule, EquipajeRoutingModule, FormsModule],
+  declarations: [EquipajeComponent, EquipajeDetailComponent, EquipajeUpdateComponent, EquipajeDeleteDialogComponent, FilterEquipajesPipe],
   entryComponents: [EquipajeDeleteDialogComponent],
 })
 export class EquipajeModule {}

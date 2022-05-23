@@ -24,7 +24,16 @@
       "cantidadEquipaje": "Cantidad Equipaje",
       "numeroAsiento": "Numero Asiento",
       "equipaje": "Equipaje",
-      "avion": "Avion"
+      "avion": "Avion",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Nombre",
+        "apellidos": "Buscar por Apellidos",
+        "pasaporte": "Buscar por Pasaporte",
+        "cantidadEquipaje": "Buscar por Cantidad Equipaje",
+        "numeroAsiento": "Buscar por Numero de Asiento",
+        "avion": "Buscar por Id del Avion"
+      }
     }
   }
 }

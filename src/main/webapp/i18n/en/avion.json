@@ -2,30 +2,39 @@
   "tfcDawApp": {
     "avion": {
       "home": {
-        "title": "Avions",
+        "title": "Planes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Avion",
-        "createOrEditLabel": "Create or edit a Avion",
+        "createLabel": "Create a new Plane",
+        "createOrEditLabel": "Create or edit a Plane",
         "notFound": "No Avions found"
       },
-      "created": "A new Avion is created with identifier {{ param }}",
-      "updated": "A Avion is updated with identifier {{ param }}",
-      "deleted": "A Avion is deleted with identifier {{ param }}",
+      "created": "A new Plane is created with identifier {{ param }}",
+      "updated": "A Plane is updated with identifier {{ param }}",
+      "deleted": "A Plane is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Avion {{ id }}?"
+        "question": "Are you sure you want to delete Plane {{ id }}?"
       },
       "detail": {
-        "title": "Avion"
+        "title": "Plane"
       },
       "id": "ID",
-      "costeFabricacion": "Coste Fabricacion",
-      "anioFabricacion": "Anio Fabricacion",
-      "piloto": "Piloto",
-      "tripulante": "Tripulante",
-      "pasajero": "Pasajero",
-      "vuelo": "Vuelo",
-      "modelo": "Modelo",
-      "aeropuerto": "Aeropuerto"
+      "costeFabricacion": "Manufacturing Cost",
+      "anioFabricacion": "Year of Manufacture",
+      "piloto": "Pilot",
+      "tripulante": "Crew Member",
+      "pasajero": "Passenger",
+      "vuelo": "Flight",
+      "modelo": "Model",
+      "aeropuerto": "Airport",
+      "filter": {
+        "id": "Search by Id",
+        "costeFabricacionMin": "Search By Range: Minimum Manufacturing Cost",
+        "costeFabricacionMax": "Search By Range: Maximum Manufacturing Cost",
+        "anioFabricacionMin": "Search By Range: Minimum Year of Manufacture",
+        "anioFabricacionMax": "Search By Range: Maximum Year of Manufacture",
+        "modelo": "Search By Model",
+        "aeropuerto": "Search By Airport Id"
+      }
     }
   }
 }

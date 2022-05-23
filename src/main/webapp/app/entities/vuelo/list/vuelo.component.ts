@@ -24,6 +24,22 @@ export class VueloComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  // ==================================================================================================================================
+  // SECCION VARIABLES PARA FILTRAR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los atributos de los objetos vuelo
+  atributos = ['id', 'fecha', 'precio', 'avion'];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los filtros de la lista de vuelos
+  filtro: any = [undefined, undefined, undefined, undefined, undefined];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   constructor(
     protected vueloService: VueloService,
     protected activatedRoute: ActivatedRoute,

@@ -115,7 +115,9 @@ export class TripulanteUpdateComponent implements OnInit {
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
-  // -
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para verificar la cantidad real de tripulantes
   public setCantidadRealTripulantes(): void {
     this.cantidadRealTripulante = 0;
     this.avionService.query().subscribe((res: HttpResponse<IAvion[]>) => {
@@ -137,7 +139,7 @@ export class TripulanteUpdateComponent implements OnInit {
       });
     });
   }
-  // -
+  // -------------------------------------------------------------------------------------------------------------------------------
 
   // FIN SECCION
   // ==================================================================================================================================

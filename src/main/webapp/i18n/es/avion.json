@@ -2,7 +2,7 @@
   "tfcDawApp": {
     "avion": {
       "home": {
-        "title": "Avions",
+        "title": "Aviones",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Avion",
         "createOrEditLabel": "Crear o editar Avion",
@@ -25,7 +25,16 @@
       "pasajero": "Pasajero",
       "vuelo": "Vuelo",
       "modelo": "Modelo",
-      "aeropuerto": "Aeropuerto"
+      "aeropuerto": "Aeropuerto",
+      "filter": {
+        "id": "Buscar por Id",
+        "costeFabricacionMin": "Buscar por Rango: Minimo Coste de Fabricacion",
+        "costeFabricacionMax": "Buscar por Rango: Maximo Coste de Fabricacion",
+        "anioFabricacionMin": "Buscar por Rango: Minimo Año de fabricacion",
+        "anioFabricacionMax": "Buscar por Rango: Maximo Año de fabricacion",
+        "modelo": "Buscar por Modelo",
+        "aeropuerto": "Buscar por Id del Avion"
+      }
     }
   }
 }

@@ -39,7 +39,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ciudad of ciudads; trackBy: trackId" data-cy="entityTable">
+        <tr>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.ciudad.filter.id' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[0]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.ciudad.filter.nombre' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[1]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.ciudad.filter.pais' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[2]"
+              name="filtro"
+            />
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let ciudad of ciudads | filterCiudades: atributos:filtro; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/ciudad', ciudad.id, 'view']">{{ ciudad.id }}</a>
           </td>

@@ -2,7 +2,7 @@
   "tfcDawApp": {
     "ciudad": {
       "home": {
-        "title": "Ciudads",
+        "title": "Ciudades",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Ciudad",
         "createOrEditLabel": "Crear o editar Ciudad",
@@ -20,7 +20,12 @@
       "id": "ID",
       "nombre": "Nombre",
       "aeropuerto": "Aeropuerto",
-      "pais": "Pais"
+      "pais": "Pais",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Nombre",
+        "pais": "Buscar por Pais"
+      }
     }
   }
 }

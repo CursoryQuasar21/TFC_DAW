@@ -49,7 +49,76 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let avion of avions; trackBy: trackId" data-cy="entityTable">
+        <tr>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.id' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[0]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.costeFabricacionMin' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[1]"
+              name="filtro"
+            />
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.costeFabricacionMax' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[2]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="datetime-local"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.anioFabricacionMin' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[3]"
+              name="filtro"
+            />
+            <input
+              type="datetime-local"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.anioFabricacionMax' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[4]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.modelo' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[5]"
+              name="filtro"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="{{ 'tfcDawApp.avion.filter.aeropuerto' | translate }}"
+              for="inputLarge"
+              [(ngModel)]="filtro[6]"
+              name="filtro"
+            />
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let avion of avions | filterAviones: atributos:filtro; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/avion', avion.id, 'view']">{{ avion.id }}</a>
           </td>

@@ -2,25 +2,30 @@
   "tfcDawApp": {
     "ciudad": {
       "home": {
-        "title": "Ciudads",
+        "title": "Citys",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Ciudad",
-        "createOrEditLabel": "Create or edit a Ciudad",
+        "createLabel": "Create a new City",
+        "createOrEditLabel": "Create or edit a City",
         "notFound": "No Ciudads found"
       },
-      "created": "A new Ciudad is created with identifier {{ param }}",
-      "updated": "A Ciudad is updated with identifier {{ param }}",
-      "deleted": "A Ciudad is deleted with identifier {{ param }}",
+      "created": "A new City is created with identifier {{ param }}",
+      "updated": "A City is updated with identifier {{ param }}",
+      "deleted": "A City is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Ciudad {{ id }}?"
+        "question": "Are you sure you want to delete City {{ id }}?"
       },
       "detail": {
-        "title": "Ciudad"
+        "title": "City"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "aeropuerto": "Aeropuerto",
-      "pais": "Pais"
+      "nombre": "Name",
+      "aeropuerto": "Airport",
+      "pais": "Country",
+      "filter": {
+        "id": "Search by Id",
+        "nombre": "Search by Name",
+        "pais": "Search by Country Id"
+      }
     }
   }
 }

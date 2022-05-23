@@ -19,7 +19,12 @@
       },
       "id": "ID",
       "tipo": "Tipo",
-      "pasajero": "Pasajero"
+      "pasajero": "Pasajero",
+      "filter": {
+        "id": "Buscar por Id",
+        "tipo": "Buscar por Tipo",
+        "pasajero": "Buscar por Pasajero Id"
+      }
     }
   }
 }

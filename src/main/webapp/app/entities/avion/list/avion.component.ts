@@ -24,6 +24,22 @@ export class AvionComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  // ==================================================================================================================================
+  // SECCION VARIABLES PARA FILTRAR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los atributos de los objetos avion
+  atributos = ['id', 'costeFabricacion', 'anioFabricacion', 'modelo', 'aeropuerto'];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los filtros de la lista de aviones
+  filtro: any = [undefined, undefined, undefined, undefined, undefined];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   constructor(
     protected avionService: AvionService,
     protected activatedRoute: ActivatedRoute,

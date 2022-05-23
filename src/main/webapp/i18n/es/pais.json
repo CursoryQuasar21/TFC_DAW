@@ -2,7 +2,7 @@
   "tfcDawApp": {
     "pais": {
       "home": {
-        "title": "Pais",
+        "title": "Paises",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Pais",
         "createOrEditLabel": "Crear o editar Pais",
@@ -19,7 +19,11 @@
       },
       "id": "ID",
       "nombre": "Nombre",
-      "ciudad": "Ciudad"
+      "ciudad": "Ciudad",
+      "filter": {
+        "id": "Buscar por Id",
+        "nombre": "Buscar por Nombre"
+      }
     }
   }
 }

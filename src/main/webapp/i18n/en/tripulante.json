@@ -2,26 +2,33 @@
   "tfcDawApp": {
     "tripulante": {
       "home": {
-        "title": "Tripulantes",
+        "title": "Crew Member",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Tripulante",
-        "createOrEditLabel": "Create or edit a Tripulante",
+        "createLabel": "Create a new Crew Member",
+        "createOrEditLabel": "Create or edit a Crew Member",
         "notFound": "No Tripulantes found"
       },
-      "created": "A new Tripulante is created with identifier {{ param }}",
-      "updated": "A Tripulante is updated with identifier {{ param }}",
-      "deleted": "A Tripulante is deleted with identifier {{ param }}",
+      "created": "A new Crew Member is created with identifier {{ param }}",
+      "updated": "A Crew Member is updated with identifier {{ param }}",
+      "deleted": "A Crew Member is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Tripulante {{ id }}?"
+        "question": "Are you sure you want to delete Crew Member {{ id }}?"
       },
       "detail": {
-        "title": "Tripulante"
+        "title": "Crew Member"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "apellidos": "Apellidos",
-      "pasaporte": "Pasaporte",
-      "avion": "Avion"
+      "nombre": "Name",
+      "apellidos": "Surname",
+      "pasaporte": "Pasaport",
+      "avion": "Plane",
+      "filter": {
+        "id": "Search by Id",
+        "nombre": "Search by Name",
+        "apellidos": "Search by Surname",
+        "pasaporte": "Search by Pasaport",
+        "avion": "Search by Plane Id"
+      }
     }
   }
 }

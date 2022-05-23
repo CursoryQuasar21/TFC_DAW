@@ -89,7 +89,9 @@ export class EquipajeUpdateComponent implements OnInit {
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
-  // -
+  // --------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para calcular la cantidad real de quipajes
   public setCantidadRealEquipajes(): void {
     this.cantidadRealEquipaje = 0;
     this.pasajeroService.query().subscribe((res: HttpResponse<IPasajero[]>) => {
@@ -111,7 +113,7 @@ export class EquipajeUpdateComponent implements OnInit {
       });
     });
   }
-  // -
+  // --------------------------------------------------------------------------------------------------------------------------------
 
   // FIN SECCION
   // ==================================================================================================================================

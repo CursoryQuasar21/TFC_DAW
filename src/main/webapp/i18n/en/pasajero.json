@@ -2,29 +2,38 @@
   "tfcDawApp": {
     "pasajero": {
       "home": {
-        "title": "Pasajeros",
+        "title": "Passenger",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Pasajero",
-        "createOrEditLabel": "Create or edit a Pasajero",
+        "createLabel": "Create a new Passenger",
+        "createOrEditLabel": "Create or edit a Passenger",
         "notFound": "No Pasajeros found"
       },
-      "created": "A new Pasajero is created with identifier {{ param }}",
-      "updated": "A Pasajero is updated with identifier {{ param }}",
-      "deleted": "A Pasajero is deleted with identifier {{ param }}",
+      "created": "A new Passenger is created with identifier {{ param }}",
+      "updated": "A Passenger is updated with identifier {{ param }}",
+      "deleted": "A Passenger is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Pasajero {{ id }}?"
+        "question": "Are you sure you want to delete Passenger {{ id }}?"
       },
       "detail": {
-        "title": "Pasajero"
+        "title": "Passenger"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "apellidos": "Apellidos",
-      "pasaporte": "Pasaporte",
-      "cantidadEquipaje": "Cantidad Equipaje",
-      "numeroAsiento": "Numero Asiento",
+      "nombre": "Name",
+      "apellidos": "Surname",
+      "pasaporte": "Pasaport",
+      "cantidadEquipaje": "Baggage Amount",
+      "numeroAsiento": "Seat Number",
       "equipaje": "Equipaje",
-      "avion": "Avion"
+      "avion": "Plane",
+      "filter": {
+        "id": "Search by Id",
+        "nombre": "Search by Name",
+        "apellidos": "Search by Surname",
+        "pasaporte": "Search by Pasaport",
+        "cantidadEquipaje": "Search by Baggage Amount",
+        "numeroAsiento": "Search by Seat Number",
+        "avion": "Search by Plane Id"
+      }
     }
   }
 }

@@ -173,7 +173,9 @@ export class PasajeroUpdateComponent implements OnInit {
   }
   // -------------------------------------------------------------------------------------------------------------------------------
 
-  // -
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para verificar la cantidad de real de pasajeros
   public setCantidadRealPasajeros(): void {
     this.cantidadRealPasajero = 0;
     this.avionService.query().subscribe((res: HttpResponse<IAvion[]>) => {
@@ -196,7 +198,11 @@ export class PasajeroUpdateComponent implements OnInit {
       });
     });
   }
-  // -
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Metodo Agregado
+  // Metodo para verificar numero asiento
   public verificarNumeroAsiento(): void {
     this.pasajeroService.query().subscribe((res: HttpResponse<IPasajero[]>) => {
       let verificador = false;
@@ -213,7 +219,7 @@ export class PasajeroUpdateComponent implements OnInit {
       console.log('5');
     });
   }
-  //-
+  // -------------------------------------------------------------------------------------------------------------------------------
 
   // FIN SECCION
   // ==================================================================================================================================

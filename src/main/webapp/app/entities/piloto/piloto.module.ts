@@ -7,9 +7,11 @@ import { PilotoUpdateComponent } from './update/piloto-update.component';
 import { PilotoDeleteDialogComponent } from './delete/piloto-delete-dialog.component';
 import { PilotoRoutingModule } from './route/piloto-routing.module';
 
+import { FormsModule } from '@angular/forms';
+import { FilterPilotosPipe } from 'app/pipes/filter/entities/piloto/filter-pilotos.pipe';
 @NgModule({
-  imports: [SharedModule, PilotoRoutingModule],
-  declarations: [PilotoComponent, PilotoDetailComponent, PilotoUpdateComponent, PilotoDeleteDialogComponent],
+  imports: [SharedModule, PilotoRoutingModule, FormsModule],
+  declarations: [PilotoComponent, PilotoDetailComponent, PilotoUpdateComponent, PilotoDeleteDialogComponent, FilterPilotosPipe],
   entryComponents: [PilotoDeleteDialogComponent],
 })
 export class PilotoModule {}

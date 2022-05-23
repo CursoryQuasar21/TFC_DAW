@@ -2,24 +2,29 @@
   "tfcDawApp": {
     "equipaje": {
       "home": {
-        "title": "Equipajes",
+        "title": "Baggage",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Equipaje",
-        "createOrEditLabel": "Create or edit a Equipaje",
-        "notFound": "No Equipajes found"
+        "createLabel": "Create a new Baggage",
+        "createOrEditLabel": "Create or edit a Baggage",
+        "notFound": "No Baggage found"
       },
-      "created": "A new Equipaje is created with identifier {{ param }}",
-      "updated": "A Equipaje is updated with identifier {{ param }}",
-      "deleted": "A Equipaje is deleted with identifier {{ param }}",
+      "created": "A new Baggage is created with identifier {{ param }}",
+      "updated": "A Baggage is updated with identifier {{ param }}",
+      "deleted": "A Baggage is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Equipaje {{ id }}?"
+        "question": "Are you sure you want to delete Baggage {{ id }}?"
       },
       "detail": {
-        "title": "Equipaje"
+        "title": "Baggage"
       },
       "id": "ID",
       "tipo": "Tipo",
-      "pasajero": "Pasajero"
+      "pasajero": "Pasajero",
+      "filter": {
+        "id": "Search by Id",
+        "tipo": "Search by Tipo",
+        "pasajero": "Search by Passenger Id"
+      }
     }
   }
 }

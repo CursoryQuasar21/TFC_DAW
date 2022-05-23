@@ -24,6 +24,22 @@ export class ModeloComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  // ==================================================================================================================================
+  // SECCION VARIABLES PARA FILTRAR
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los atributos de los objetos modelo
+  atributos = ['id', 'nombre', 'motores', 'cantidadPilotos', 'cantidadTripulantes', 'cantidadPasajeros', 'cantidadEquipajes'];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------------------------------------------
+  // Variable para manejar los filtros de la lista de modelos
+  filtro: any = [];
+  // -------------------------------------------------------------------------------------------------------------------------------
+
+  // FIN SECCION
+  // ==================================================================================================================================
+
   constructor(
     protected modeloService: ModeloService,
     protected activatedRoute: ActivatedRoute,

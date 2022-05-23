@@ -2,29 +2,39 @@
   "tfcDawApp": {
     "modelo": {
       "home": {
-        "title": "Modelos",
+        "title": "Models",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Modelo",
-        "createOrEditLabel": "Create or edit a Modelo",
-        "notFound": "No Modelos found"
+        "createLabel": "Create a new Model",
+        "createOrEditLabel": "Create or edit a Model",
+        "notFound": "No Models found"
       },
-      "created": "A new Modelo is created with identifier {{ param }}",
-      "updated": "A Modelo is updated with identifier {{ param }}",
-      "deleted": "A Modelo is deleted with identifier {{ param }}",
+      "created": "A new Model is created with identifier {{ param }}",
+      "updated": "A Model is updated with identifier {{ param }}",
+      "deleted": "A Model is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Modelo {{ id }}?"
+        "question": "Are you sure you want to delete Model {{ id }}?"
       },
       "detail": {
-        "title": "Modelo"
+        "title": "Model"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "motores": "Motores",
-      "cantidadPilotos": "Cantidad Pilotos",
-      "cantidadTripulantes": "Cantidad Tripulantes",
-      "cantidadPasajeros": "Cantidad Pasajeros",
-      "cantidadEquipajes": "Cantidad Equipajes",
-      "avion": "Avion"
+      "nombre": "Name",
+      "motores": "Engines",
+      "cantidadPilotos": "Number of Pilots",
+      "cantidadTripulantes": "Number of Crew Members",
+      "cantidadPasajeros": "Number of Passengers",
+      "cantidadEquipajes": "Baggage Amount",
+      "avion": "Plane",
+      "filter": {
+        "id": "Search by Id",
+        "nombre": "Search by Engines",
+        "motores": "Search by Name",
+        "cantidadPilotos": "Search by Number of Pilots",
+        "cantidadTripulantes": "Search by Number of Crew Members",
+        "cantidadPasajeros": "Search by Number of Passengers",
+        "cantidadEquipajes": "Search by Baggage Amount",
+        "avion": "Search by Plane Id"
+      }
     }
   }
 }
